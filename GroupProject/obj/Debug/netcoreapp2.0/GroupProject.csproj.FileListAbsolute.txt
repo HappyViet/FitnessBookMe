@@ -1,0 +1,12 @@
+/Users/Scott/Projects/GroupProject/GroupProject/bin/Debug/netcoreapp2.0/libe_sqlite3.dylib
+/Users/Scott/Projects/GroupProject/GroupProject/bin/Debug/netcoreapp2.0/GroupProject.deps.json
+/Users/Scott/Projects/GroupProject/GroupProject/bin/Debug/netcoreapp2.0/GroupProject.runtimeconfig.json
+/Users/Scott/Projects/GroupProject/GroupProject/bin/Debug/netcoreapp2.0/GroupProject.runtimeconfig.dev.json
+/Users/Scott/Projects/GroupProject/GroupProject/bin/Debug/netcoreapp2.0/GroupProject.dll
+/Users/Scott/Projects/GroupProject/GroupProject/bin/Debug/netcoreapp2.0/GroupProject.pdb
+/Users/Scott/Projects/GroupProject/GroupProject/obj/Debug/netcoreapp2.0/GroupProject.csprojResolveAssemblyReference.cache
+/Users/Scott/Projects/GroupProject/GroupProject/obj/Debug/netcoreapp2.0/GroupProject.csproj.CoreCompileInputs.cache
+/Users/Scott/Projects/GroupProject/GroupProject/obj/Debug/netcoreapp2.0/GroupProject.AssemblyInfoInputs.cache
+/Users/Scott/Projects/GroupProject/GroupProject/obj/Debug/netcoreapp2.0/GroupProject.AssemblyInfo.cs
+/Users/Scott/Projects/GroupProject/GroupProject/obj/Debug/netcoreapp2.0/GroupProject.dll
+/Users/Scott/Projects/GroupProject/GroupProject/obj/Debug/netcoreapp2.0/GroupProject.pdb
