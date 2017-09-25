@@ -10,3 +10,4 @@
 /Users/Scott/Projects/GroupProject/GroupProject/obj/Debug/netcoreapp2.0/GroupProject.AssemblyInfo.cs
 /Users/Scott/Projects/GroupProject/GroupProject/obj/Debug/netcoreapp2.0/GroupProject.dll
 /Users/Scott/Projects/GroupProject/GroupProject/obj/Debug/netcoreapp2.0/GroupProject.pdb
+C:\Users\joshi\source\repos\bookings\GroupProject\obj\Debug\netcoreapp2.0\GroupProject.pdb
