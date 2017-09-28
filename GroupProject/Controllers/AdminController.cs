@@ -14,11 +14,12 @@ namespace GroupProject.Controllers
     public class AdminController : Controller
     {
         private DB_Context db_context;
+        
         public AdminController(DB_Context db_context)
         {
             this.db_context = db_context;
         }
-        
+
         public IActionResult Index()
         {
             User loggedInuser = db_context.Users.Single(x => x.Email == HttpContext.User.Identity.Name);
@@ -86,7 +87,7 @@ namespace GroupProject.Controllers
             return RedirectToAction("Index");
         }
 
-    
+
         public IActionResult Reservations()
         {
             User loggedInuser = db_context.Users.Single(x => x.Email == HttpContext.User.Identity.Name);
@@ -120,5 +121,66 @@ namespace GroupProject.Controllers
                 return true;
             return false;
         }
+
+        #region Configure
+        #region Instructors
+        public PartialViewResult Instructors()
+        {
+            return PartialView();
+        }
+
+        public JsonResult GetInstructors()
+        {
+            
+            var searchParam = HttpContext.Request.Query["search[value]"];
+            List<User> filteredInstructor = DB_Context._Instructors;
+            string firstName, lastName;
+            if (searchParam.Count>=1)
+            {
+                string[] keywords = searchParam[0].Split(" ");
+                if(keywords.Length>1)
+                {
+                    firstName = keywords[0];
+                    lastName = keywords[1];
+                }
+                else
+                {
+                    firstName = searchParam[0];
+                    lastName = searchParam[0];
+                }
+
+                if (firstName != lastName)
+                    filteredInstructor = DB_Context._Instructors.FindAll(x => (x.FirstName.Contains(firstName) && x.LastName.Contains(lastName)) || x.Email.Contains(searchParam));
+                else
+                    filteredInstructor = DB_Context._Instructors.FindAll(x => x.FirstName.Contains(firstName) || x.LastName.Contains(lastName) || x.Email.Contains(searchParam));
+            }
+
+            dynamic data = new
+            {
+                draw = HttpContext.Request.Query["draw"],
+                recordsTotal = DB_Context._Instructors.Count,
+                recordsFiltered = filteredInstructor.Count,
+                data=filteredInstructor
+            };
+            return Json(data);
+
+
+        }
+
+        public PartialViewResult AddInstructor()
+        {
+            return PartialView();
+        }
+        [HttpPost]
+        public JsonResult AddInstructor(User Instructor)
+        {
+            System.Threading.Thread.Sleep(2000);
+            Instructor.UserID = DB_Context._Instructors.Count + 1;
+            DB_Context._Instructors.Add(Instructor);
+            return Json(true);
+        }
+
+        #endregion
+        #endregion
     }
 }

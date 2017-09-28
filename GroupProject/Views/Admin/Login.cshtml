@@ -2,7 +2,7 @@
     ViewData["Title"] = "Administrator Login Page";
 }
 @model LoginModel
-<div class="login-box">
+<div class="login-box" style="display:none">
     <div class="login-logo">
         <a href="/"><b>Fitness 24x7</b></a>
     </div>
@@ -41,7 +41,8 @@
 </div>
 @section scripts{ 
 <script type="text/javascript">
-        $(document).ready(function () {
+    $(document).ready(function () {
+        $('.login-box').show();
             $('input').iCheck({
                 checkboxClass: 'icheckbox_square-red',
                 radioClass: 'iradio_square-red',

@@ -1,0 +1,131 @@
+﻿<div class="container-fluid">
+    <div class="row" style="margin-bottom:10px;">
+        <div class="col-lg-4 col-md-4" style="padding-left: 11px;">
+            <h3 style="margin:0px;">Add new Instructor</h3>
+        </div>
+        <div class="col-lg-4 col-md-4">
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <button data-toggle="modal" data-target="#modal-warning" data-backdrop="false" type="button" class="btn btn-block btn-primary " style="float:right;max-width:150px;"><i class="fa  fa-angle-double-left"></i> Back to Instructors</button>
+        </div>
+    </div>
+    <div class="row">
+        <form id="NewInstructorForm" role="form">
+            <div class="box-body">
+                <div class="row">
+                    <div class="form-group col-lg-2">
+                        <label for="firstName">First Name</label>
+                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter First Name">
+                    </div>
+                    <div class="form-group col-lg-2">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter Last Name">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-2">
+                        <label for="email">Email Address</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email Address">
+                    </div>
+                    <div class="form-group col-lg-2">
+                        <label for="designation">Designation</label>
+                        <input type="text" class="form-control" id="designation" name="designation" placeholder="Enter Designation">
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+
+            <div class="box-footer">
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info"><i class="fa fa-plus"></i> Add</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal modal-warning fade" id="modal-warning">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Attention!</h4>
+            </div>
+            <div class="modal-body">
+                <h4>Are you sure you want to go back to Instructors Page ?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i><div>No</div></button>
+                <button id="BackToInstructors" type="button" data-dismiss="modal" class="btn btn-outline"><i class="fa fa-check-circle"></i><div>Yes</div></button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal modal-info fade" id="modal-info">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Add Instructor Confirmation</h4>
+            </div>
+            <div class="modal-body">
+                <h4>Do you want to verify the information, or continue saving the changes?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="VerifyBtn" class="btn btn-outline pull-left" data-dismiss="modal"><i class="fa  fa-angle-double-left"></i><div>Verify</div></button>
+                <button id="SaveInstructor" type="button" class="btn btn-outline"><i class="fa fa-check"></i><div>Save changes</div></button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#BackToInstructors").click(function () {
+            $.ajax({
+                url: "@Url.Action("instructors", "admin")",
+                success: function (data) {
+                    $(".modal-backdrop").remove();
+                    $("#instructors").html(data);
+                }
+            });
+        });
+        $("#SaveInstructor").click(function () {
+            $("#VerifyBtn").attr("disabled", "disabled");
+            $("#SaveInstructor").attr("disabled","disabled");
+            $("#SaveInstructor i").removeClass("fa-check");
+            $("#SaveInstructor i").addClass("fa-spinner fa-pulse fa-fw");
+            $("#SaveInstructor div").text("Saving Changes");
+            $.ajax({
+                url: "@Url.Action("addinstructor", "admin")",
+                method: 'POST',
+                data: $('#NewInstructorForm').serialize(),
+                async:true,
+                success: function (data) {
+                    if(data==true){
+                        $("#SaveInstructor i").removeClass("fa-spinner fa-pulse fa-fw");
+                        $("#SaveInstructor i").addClass("fa-check");
+                        $("#SaveInstructor div").text("Saved Changes");
+                        $("#SaveInstructor").removeAttr("disabled");
+                        $("#VerifyBtn").removeAttr("disabled");
+                        setTimeout(function () {
+                            $.ajax({
+                                url: "@Url.Action("instructors", "admin")",
+                                success: function (data) {
+                                    $(".modal-backdrop").remove();
+                                    $("#instructors").html(data);
+                                }
+                            });
+                         }, 2000);
+
+                    }
+                }
+            })
+        });
+    });
+</script>
