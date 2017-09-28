@@ -1,0 +1,39 @@
+﻿<div class="container-fluid">
+    <div class="row" style="margin-bottom:10px;">
+        <div style="padding:0px;width:auto;float:left;">
+            <button id="AddInstructorBtn" type="button" class="btn btn-block btn-primary "><i class="fa fa-plus"></i> Add New Instructor</button>
+        </div>
+    </div>
+    <div class="row">
+        <table id="instructorsTable" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Designation</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#instructorsTable').DataTable({
+            "processing": true,
+            "serverSide": true,
+            'ajax': { "url": '@Url.Action("getinstructors", "admin")' },
+            'columns': [
+                { "data": "firstName" },
+                { "data": "lastName" },
+                { "data": "email" },
+                { "data": "designation" }
+            ]
+        });
+        $("#AddInstructorBtn").click(function () {
+            $("#instructors").load("@Url.Action("addinstructor", "admin")");
+        });
+    });
+</script>
