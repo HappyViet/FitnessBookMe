@@ -22,3 +22,14 @@ C:\Users\joshi\Documents\FitnessBookMe\GroupProject\bin\Debug\netcoreapp2.0\Grou
 C:\Users\joshi\Documents\FitnessBookMe\GroupProject\bin\Debug\netcoreapp2.0\GroupProject.dll
 C:\Users\joshi\Documents\FitnessBookMe\GroupProject\bin\Debug\netcoreapp2.0\GroupProject.pdb
 C:\Users\joshi\Documents\FitnessBookMe\GroupProject\obj\Debug\netcoreapp2.0\GroupProject.dll
+C:\Users\Yashdeep\Documents\FitnessBookMe\GroupProject\bin\Debug\netcoreapp2.0\GroupProject.deps.json
+C:\Users\Yashdeep\Documents\FitnessBookMe\GroupProject\bin\Debug\netcoreapp2.0\GroupProject.runtimeconfig.json
+C:\Users\Yashdeep\Documents\FitnessBookMe\GroupProject\bin\Debug\netcoreapp2.0\GroupProject.runtimeconfig.dev.json
+C:\Users\Yashdeep\Documents\FitnessBookMe\GroupProject\bin\Debug\netcoreapp2.0\GroupProject.dll
+C:\Users\Yashdeep\Documents\FitnessBookMe\GroupProject\bin\Debug\netcoreapp2.0\GroupProject.pdb
+C:\Users\Yashdeep\Documents\FitnessBookMe\GroupProject\obj\Debug\netcoreapp2.0\GroupProject.csprojResolveAssemblyReference.cache
+C:\Users\Yashdeep\Documents\FitnessBookMe\GroupProject\obj\Debug\netcoreapp2.0\GroupProject.csproj.CoreCompileInputs.cache
+C:\Users\Yashdeep\Documents\FitnessBookMe\GroupProject\obj\Debug\netcoreapp2.0\GroupProject.AssemblyInfoInputs.cache
+C:\Users\Yashdeep\Documents\FitnessBookMe\GroupProject\obj\Debug\netcoreapp2.0\GroupProject.AssemblyInfo.cs
+C:\Users\Yashdeep\Documents\FitnessBookMe\GroupProject\obj\Debug\netcoreapp2.0\GroupProject.dll
+C:\Users\Yashdeep\Documents\FitnessBookMe\GroupProject\obj\Debug\netcoreapp2.0\GroupProject.pdb
