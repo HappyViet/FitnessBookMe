@@ -12781,7 +12781,11 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\Yashdeep\\.nuget\\packages\\": {},
+=======
+    "C:\\Users\\rushirajjadeja\\.nuget\\packages\\": {},
+>>>>>>> master
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -12790,17 +12794,29 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\Yashdeep\\Documents\\FitnessBookMe\\GroupProject\\GroupProject.csproj",
       "projectName": "GroupProject",
       "projectPath": "C:\\Users\\Yashdeep\\Documents\\FitnessBookMe\\GroupProject\\GroupProject.csproj",
       "packagesPath": "C:\\Users\\Yashdeep\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Yashdeep\\Documents\\FitnessBookMe\\GroupProject\\obj\\",
+=======
+      "projectUniqueName": "C:\\FitnessBookMe\\GroupProject\\GroupProject.csproj",
+      "projectName": "GroupProject",
+      "projectPath": "C:\\FitnessBookMe\\GroupProject\\GroupProject.csproj",
+      "packagesPath": "C:\\Users\\rushirajjadeja\\.nuget\\packages\\",
+      "outputPath": "C:\\FitnessBookMe\\GroupProject\\obj\\",
+>>>>>>> master
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
+<<<<<<< HEAD
         "C:\\Users\\Yashdeep\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+        "C:\\Users\\rushirajjadeja\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> master
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

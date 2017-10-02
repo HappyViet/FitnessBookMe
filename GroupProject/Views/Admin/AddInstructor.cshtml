@@ -12,26 +12,194 @@
     <div class="row">
         <form id="NewInstructorForm" role="form">
             <div class="box-body">
-                <div class="row">
-                    <div class="form-group col-lg-2">
-                        <label for="firstName">First Name</label>
-                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter First Name">
-                    </div>
-                    <div class="form-group col-lg-2">
-                        <label for="lastName">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter Last Name">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-lg-2">
-                        <label for="email">Email Address</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email Address">
-                    </div>
-                    <div class="form-group col-lg-2">
-                        <label for="designation">Designation</label>
-                        <input type="text" class="form-control" id="designation" name="designation" placeholder="Enter Designation">
-                    </div>
-                </div>
+                <h4><span class="label label-danger">Personal Information</span></h4>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="form-group row">
+                            <div class="col-lg-4 col-md-6">
+                                <label for="firstName">First Name &amp; Last Name</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter First Name">
+                                    <span class="input-group-addon"><b>&amp;</b></span>
+                                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter Last Name">
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-3">
+                                <label for="dateOfBirth">Date of Birth</label>
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" id="dateOfBirth">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-1 col-sm-2 col-xs-6">
+                                <input type="radio" id="GenderMale" name="Gender" value="1" checked="checked" />
+                                <label for="GenderMale">Male</label>
+                            </div>
+                            <div class="col-md-1 col-sm-2 col-xs-6">
+                                <input type="radio" id="GenderFemale" name="Gender" value="2" />
+                                <label for="GenderFemale">Female</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-2 col-md-3">
+                                <label for="userName">User Name</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-at"></i></span>
+                                    <input type="text" class="form-control" id="userName" name="userName" placeholder="Enter User Name">
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-4">
+                                <label for="email">Email Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email Address">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-2 col-md-3">
+                                <label for="workPhone">Work Phone</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-phone"></i>
+                                    </div>
+                                    <input type="text" class="form-control" id="workPhone" name="workPhone" placeholder="Enter Work Phone" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-3">
+                                <label for="phone">Phone</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-phone"></i>
+                                    </div>
+                                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter Phone" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-3 col-md-4">
+                                <label for="addressLine1">Address Line 1</label>
+                                <input type="text" class="form-control" id="addressLine1" name="addressLine1" placeholder="Enter Address Line 1">
+                            </div>
+                            <div class="col-lg-3 col-md-4">
+                                <label for="addressLine2">Address Line 2</label>
+                                <input type="text" class="form-control" id="addressLine2" name="addressLine2" placeholder="Enter Address Line 2">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-2 col-md-3">
+                                <label for="city">City</label>
+                                <input type="text" class="form-control" id="city" name="city" placeholder="Enter City">
+                            </div>
+                            <div class="col-lg-2 col-md-3">
+                                <label for="state">State</label>
+                                <input type="text" class="form-control" id="state" name="state" placeholder="Enter State">
+                            </div>                           
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-2 col-md-3">
+                                <label for="country">Country</label>
+                                <input type="text" class="form-control" id="country" name="country" placeholder="Enter Country">
+                            </div>
+                            <div class="col-lg-2 col-md-3">
+                                <label for="pincode">Zip Code</label>
+                                <input type="text" class="form-control" id="pincode" name="pincode" placeholder="Enter Zip Code">
+                            </div>
+                        </div>
+                </li>
+                </ul>
+                <h4><span class="label label-danger">General Information</span></h4>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="form-group row">
+                            <div class="col-lg-4 col-md-6">
+                                <label for="bio">Biography</label>
+                                <textarea class="form-control" rows="7" id="bio" name="bio" placeholder="Enter Biography"></textarea>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6">
+                                <label for="description">Description</label>
+                                <textarea class="form-control" rows="7" id="description" name="description" placeholder="Enter Description"></textarea>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6">
+                                <label for="quote">Quote</label>
+                                <textarea class="form-control" rows="7" id="quote" name="quote" placeholder="Enter Quote"></textarea>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <h4><span class="label label-danger">Social Information</span></h4>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="form-group row">
+                            <div class="col-lg-5 col-md-6">
+                                <label for="facebookURL" class="form-label">Facebook</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-facebook"></i></span>
+                                    <input id="facebookURL" name="facebookURL" type="text" class="form-control" placeholder="Enter Facebook URL">
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-md-6">
+                                <label for="instagramURL" class="form-label">Instagram</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-instagram"></i></span>
+                                    <input id="instagramURL" name="instagramURL" type="text" class="form-control" placeholder="Enter Instagram URL">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-5 col-md-6">
+                                <label for="twitterURL" class="form-label">Twitter</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-twitter"></i></span>
+                                    <input id="twitterURL" name="twitterURL" type="text" class="form-control" placeholder="Enter Twitter URL">
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-md-6">
+                                <label for="spotifyURL" class="form-label">Spotify</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-spotify"></i></span>
+                                    <input id="spotifyURL" name="spotifyURL" type="text" class="form-control" placeholder="Enter Spotify URL">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-5 col-md-6">
+                                <label for="soundCloudURL" class="form-label">SoundCloud</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-soundcloud"></i></span>
+                                    <input id="soundCloudURL" name="soundCloudURL" type="text" class="form-control" placeholder="Enter SoundCloud URL">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <h4><span class="label label-danger">Misc. Information</span></h4>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="form-group row">
+                            <div class="col-lg-2 col-md-3">
+                                <label for="sortOrder">Sort Order</label>
+                                <input type="text" class="form-control" id="sortOrder" name="sortOrder" placeholder="Enter Sort Order">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-2 col-md-3">
+                                <div class="checkbox icheck">
+                                    <label>
+                                        <input id="displayInstructorFlag" name="displayInstructorFlag" checked type="checkbox"> Display on Instructors Page ?
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
             <!-- /.box-body -->
 
@@ -84,8 +252,21 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+<script type="text/javascript" src="~/lib/admin-lte/plugins/input-mask/jquery.inputmask.js"></script>
+<script type="text/javascript" src="~/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"], input[type="radio"]').iCheck({
+            checkboxClass: 'icheckbox_square-red',
+            radioClass: 'iradio_square-red',
+        });
+        //Date picker
+        $('#dateOfBirth').datepicker({
+            autoclose: true
+        });
+
+        $('[data-mask]').inputmask();
         $("#BackToInstructors").click(function () {
             $.ajax({
                 url: "@Url.Action("instructors", "admin")",
@@ -95,6 +276,7 @@
                 }
             });
         });
+
         $("#SaveInstructor").click(function () {
             $("#VerifyBtn").attr("disabled", "disabled");
             $("#SaveInstructor").attr("disabled","disabled");
@@ -105,9 +287,9 @@
                 url: "@Url.Action("addinstructor", "admin")",
                 method: 'POST',
                 data: $('#NewInstructorForm').serialize(),
-                async:true,
+                async: true,
                 success: function (data) {
-                    if(data==true){
+                    if (data == true) {
                         $("#SaveInstructor i").removeClass("fa-spinner fa-pulse fa-fw");
                         $("#SaveInstructor i").addClass("fa-check");
                         $("#SaveInstructor div").text("Saved Changes");
@@ -121,11 +303,11 @@
                                     $("#instructors").html(data);
                                 }
                             });
-                         }, 2000);
+                        }, 2000);
 
                     }
                 }
-            })
+            });
         });
     });
 </script>
