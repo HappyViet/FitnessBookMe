@@ -129,7 +129,7 @@ namespace GroupProject.Controllers
         {
             
             var searchParam = HttpContext.Request.Query["search[value]"];
-            List<Instructor> filteredInstructor = db_context.Instructors.ToList();
+            List<dynamic> filteredInstructor = db_context.Instructors.Select(x=>new { x.UserID,x.FirstName,x.LastName,x.Email,x.Bio}).ToList<dynamic>();
             
             string firstName, lastName;
             if (searchParam.Count>=1)
@@ -147,11 +147,11 @@ namespace GroupProject.Controllers
                 }
 
                 if (firstName != lastName)
-                    filteredInstructor = db_context.Instructors.Where(x => (x.FirstName.Contains(firstName) && x.LastName.Contains(lastName)) || x.Email.Contains(searchParam)).ToList();
+                    filteredInstructor = db_context.Instructors.Where(x => (x.FirstName.Contains(firstName) && x.LastName.Contains(lastName)) || x.Email.Contains(searchParam)).Select(x => new { x.UserID, x.FirstName, x.LastName, x.Email, x.Bio }).ToList<dynamic>();
                 else
-                    filteredInstructor = db_context.Instructors.Where(x => x.FirstName.Contains(firstName) || x.LastName.Contains(lastName) || x.Email.Contains(searchParam)).ToList();
+                    filteredInstructor = db_context.Instructors.Where(x => x.FirstName.Contains(firstName) || x.LastName.Contains(lastName) || x.Email.Contains(searchParam)).Select(x => new { x.UserID, x.FirstName, x.LastName, x.Email, x.Bio }).ToList<dynamic>();
             }
-            filteredInstructor.ForEach(x => x.Password = "");
+            //zfilteredInstructor.ForEach(x => x.Password = "");
             dynamic data = new
             {
                 draw = HttpContext.Request.Query["draw"],

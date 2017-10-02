@@ -36,13 +36,29 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <div class="col-lg-2 col-md-3">
+                                <label for="weight">Weight</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="weight" name="weight" placeholder="Enter Weight">
+                                    <span class="input-group-addon"><b>lb.</b></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-3">
+                                <label for="height">Height</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="height" name="height" placeholder="Enter Height">
+                                    <span class="input-group-addon"><b>cm.</b></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <div class="col-md-1 col-sm-2 col-xs-6">
-                                <input type="radio" id="GenderMale" name="Gender" value="1" checked="checked" />
-                                <label for="GenderMale">Male</label>
+                                <input type="radio" id="_Gender" name="_Gender" value="1" checked="checked" />
+                                <label for="_Gender">Male</label>
                             </div>
                             <div class="col-md-1 col-sm-2 col-xs-6">
-                                <input type="radio" id="GenderFemale" name="Gender" value="2" />
-                                <label for="GenderFemale">Female</label>
+                                <input type="radio" id="_Gender" name="_Gender" value="2" />
+                                <label for="_Gender">Female</label>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -183,6 +199,15 @@
                 <h4><span class="label label-danger">Misc. Information</span></h4>
                 <ul class="list-group">
                     <li class="list-group-item">
+                        <div class="form-group row">
+                            <div class="col-lg-2 col-md-3">
+                                <label for="hourlyRate">Hourly Pay Rate</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">$</span>
+                                    <input type="text" class="form-control" id="hourlyRate" name="hourlyRate" placeholder="Enter Hourly Rate"/>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <div class="col-lg-2 col-md-3">
                                 <label for="sortOrder">Sort Order</label>
