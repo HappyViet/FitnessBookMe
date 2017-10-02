@@ -7,6 +7,7 @@ using GroupProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using GroupProject.Constants;
 
 namespace GroupProject.Controllers
 {
@@ -81,42 +82,37 @@ namespace GroupProject.Controllers
         }
         public IActionResult Add(DB_Context db_Context)
         {
-            User Person = new User() { FirstName = "Pranav", LastName = "Joshi", Email = "joshi.pranav@hotmail.com", Password = "qwerty", UserRole = 9999 };
-            db_Context.Add<User>(Person);
+            Instructor instructor = new Instructor() { FirstName = "Rushiraaj", LastName = "Jadeja", Email = "rushi@hotmail.com", Password = "qwerty", _UserRole = 49,UserName="rushi",_Gender=1,AddressLine1="Apt 528, 1907 Deerpark Drive",City="Fullerton",State="CA",Country="US",Pincode=92831,DateOfBirth=DateTime.Parse("1991-12-27"),Designation="Instructor",Bio="abc",Description="",HourlyRate=10.50 };
+            db_Context.Add<Instructor>(instructor);
             db_Context.SaveChanges();
             return RedirectToAction("Index");
         }
 
-
-        public IActionResult Reservations()
+        public PartialViewResult Dashboard()
         {
-            User loggedInuser = db_context.Users.Single(x => x.Email == HttpContext.User.Identity.Name);
-            ViewBag.User = loggedInuser;
-            return View();
+            return PartialView();
+        }
+        public PartialViewResult Reservations()
+        {
+            return PartialView();
         }
 
-        public IActionResult Schedules()
+        public PartialViewResult Schedules()
         {
-            User loggedInuser = db_context.Users.Single(x => x.Email == HttpContext.User.Identity.Name);
-            ViewBag.User = loggedInuser;
-            return View();
+            return PartialView();
         }
 
-        public IActionResult Members()
+        public PartialViewResult Members()
         {
-            User loggedInuser = db_context.Users.Single(x => x.Email == HttpContext.User.Identity.Name);
-            ViewBag.User = loggedInuser;
-            return View();
+            return PartialView();
         }
-        public IActionResult Configure()
+        public PartialViewResult Configure()
         {
-            User loggedInuser = db_context.Users.Single(x => x.Email == HttpContext.User.Identity.Name);
-            ViewBag.User = loggedInuser;
-            return View();
+            return PartialView();
         }
         private bool IsAuthentic(string username, string password)
         {
-            int count = db_context.Users.Count(x => x.UserRole >= 50 && x.Email == username && x.Password == password);
+            int count = db_context.Users.Count(x => x._UserRole >= UserRoles.Instructor && x.Email == username && x.Password == password);
             if (count == 1)
                 return true;
             return false;
@@ -133,7 +129,8 @@ namespace GroupProject.Controllers
         {
             
             var searchParam = HttpContext.Request.Query["search[value]"];
-            List<User> filteredInstructor = DB_Context._Instructors;
+            List<Instructor> filteredInstructor = db_context.Instructors.ToList();
+            
             string firstName, lastName;
             if (searchParam.Count>=1)
             {
@@ -150,15 +147,15 @@ namespace GroupProject.Controllers
                 }
 
                 if (firstName != lastName)
-                    filteredInstructor = DB_Context._Instructors.FindAll(x => (x.FirstName.Contains(firstName) && x.LastName.Contains(lastName)) || x.Email.Contains(searchParam));
+                    filteredInstructor = db_context.Instructors.Where(x => (x.FirstName.Contains(firstName) && x.LastName.Contains(lastName)) || x.Email.Contains(searchParam)).ToList();
                 else
-                    filteredInstructor = DB_Context._Instructors.FindAll(x => x.FirstName.Contains(firstName) || x.LastName.Contains(lastName) || x.Email.Contains(searchParam));
+                    filteredInstructor = db_context.Instructors.Where(x => x.FirstName.Contains(firstName) || x.LastName.Contains(lastName) || x.Email.Contains(searchParam)).ToList();
             }
-
+            filteredInstructor.ForEach(x => x.Password = "");
             dynamic data = new
             {
                 draw = HttpContext.Request.Query["draw"],
-                recordsTotal = DB_Context._Instructors.Count,
+                recordsTotal = db_context.Instructors.Count(),
                 recordsFiltered = filteredInstructor.Count,
                 data=filteredInstructor
             };
@@ -172,11 +169,12 @@ namespace GroupProject.Controllers
             return PartialView();
         }
         [HttpPost]
-        public JsonResult AddInstructor(User Instructor)
+        public JsonResult AddInstructor(Instructor Instructor)
         {
-            System.Threading.Thread.Sleep(2000);
-            Instructor.UserID = DB_Context._Instructors.Count + 1;
-            DB_Context._Instructors.Add(Instructor);
+            Instructor._UserRole = 49;
+            Instructor.Password = "qwerty123";
+            db_context.Instructors.Add(Instructor);
+            db_context.SaveChanges();
             return Json(true);
         }
 

@@ -1,5 +1,6 @@
-﻿@{ 
+﻿@{
     User Model = ViewBag.User;
+    ViewData["Title"] = "Administrator Dashboard";
 }
 <!DOCTYPE html>
 <html>
@@ -20,6 +21,7 @@
         <link rel="stylesheet" href="~/lib/admin-lte/dist/css/skins/_all-skins.min.css">
         <link rel="stylesheet" href="~/lib/admin-lte/plugins/iCheck/square/red.css">
         <link rel="stylesheet" href="~/lib/datatables.net-bs/css/dataTables.bootstrap.min.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"/>
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
     <environment exclude="Development">
@@ -197,11 +199,11 @@ else
 
                                             <p>
                                                 @Model.FirstName @Model.LastName
-                                                @{ 
-                                                    string role = Model.GetRole();
-                                                    if(Model.GetRole()!="")
+                                                @{
+                                                    string role = Model.UserRole;
+                                                    if (Model.UserRole != "")
                                                     {
-                                                        role = "(" + role + ")";
+                                                        role = "(" + Model.UserRole + ")";
                                                     }
                                                 }
                                                 <small>@role</small>
@@ -245,23 +247,27 @@ else
                 <div class="container-fluid">
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
-                        <a class="btn btn-app @(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")" asp-controller="Admin" asp-action="Index">
+                        <a class="btn btn-app active" id="Dashboard">
                             <i class="fa fa-dashboard"></i> Dashboard
                         </a>
-                        <a class="btn btn-app @(ViewContext.RouteData.Values["Action"].ToString() == "reservations" ? "active" : "")" asp-controller="Admin" asp-action="Reservations">
+                        <a class="btn btn-app" id="Reservations">
                             <i class="fa fa-user-plus"></i> Reservations
                         </a>
-                        <a class="btn btn-app @(ViewContext.RouteData.Values["Action"].ToString() == "schedules" ? "active" : "")" asp-controller="Admin" asp-action="Schedules">
+                        <a class="btn btn-app" id="Schedules">
                             <i class="fa fa-calendar-check-o"></i> Schedules
                         </a>
-                        <a class="btn btn-app @(ViewContext.RouteData.Values["Action"].ToString() == "members" ? "active" : "")" asp-controller="Admin" asp-action="Members">
+                        <a class="btn btn-app" id="Members">
                             <i class="fa fa-users"></i> Members
                         </a>
-                        <a class="btn btn-app @(ViewContext.RouteData.Values["Action"].ToString() == "configure" ? "active" : "")" asp-controller="Admin" asp-action="Configure">
+                        <a class="btn btn-app" id="Configure">
                             <i class="fa fa-tasks"></i> Configure
                         </a>
                     </section>
-                    @RenderBody()
+                    <!-- Main content -->
+                    <section id="MainContainer" class="content">
+                        @RenderBody()
+                    </section>
+                    <!-- /.content -->
                 </div>
                 <!-- /.container -->
             </div>
@@ -277,11 +283,10 @@ else
                 <!-- /.container -->
             </footer>
         </div>
-    }
-
+                                                    }
     <!-- jQuery 3 -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    
+
     <!-- Bootstrap 3.3.7 -->
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- SlimScroll -->
@@ -292,5 +297,76 @@ else
     <script src="~/lib/admin-lte/dist/js/adminlte.min.js"></script>
     <script src="~/lib/admin-lte/dist/js/app.min.js"></script>
     @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: "@Url.Action("dashboard", "admin")",
+                success: function (data) {
+                    $("#MainContainer").html(data);
+                }
+            });
+            function resetActiveLink() {
+
+                $(".btn-app").removeClass("active");
+            }
+            $("#Dashboard").click(function () {
+                $.ajax({
+                    url: "@Url.Action("dashboard", "admin")",
+                    success: function (data) {
+                        $("#MainContainer").html(data);
+                        document.title = 'Administrator Dashboard - GroupProject';
+                        resetActiveLink();
+                        $("#Dashboard").addClass("active");
+                    }
+                });
+            });
+            $("#Reservations").click(function () {
+                $.ajax({
+                    url: "@Url.Action("reservations", "admin")",
+                    success: function (data) {
+                        $("#MainContainer").html(data);
+                        document.title = 'Reservations - GroupProject';
+                        resetActiveLink();
+                        $("#Reservations").addClass("active");
+                    }
+                });
+            });
+            $("#Schedules").click(function () {
+                $.ajax({
+                    url: "@Url.Action("schedules", "admin")",
+                    success: function (data) {
+                        $("#MainContainer").html(data);
+                        document.title = 'Schedules - GroupProject';
+                        resetActiveLink();
+                        $("#Schedules").addClass("active");
+                    }
+                });
+            });
+            $("#Members").click(function () {
+                $.ajax({
+                    url: "@Url.Action("members", "admin")",
+                    success: function (data) {
+                        $("#MainContainer").html(data);
+                        document.title = 'Members - GroupProject';
+                        resetActiveLink();
+                        $("#Members").addClass("active");
+
+                    }
+                });
+            });
+            $("#Configure").click(function () {
+                $.ajax({
+                    url: "@Url.Action("configure", "admin")",
+                    success: function (data) {
+                        $("#MainContainer").html(data);
+                        document.title = 'Configure - GroupProject';
+                        resetActiveLink();
+                        $("#Configure").addClass("active");
+                    }
+                });
+            });
+        });
+
+    </script>
 </body>
 </html>
