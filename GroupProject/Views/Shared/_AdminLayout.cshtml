@@ -17,11 +17,15 @@
         <!-- Ionicons -->
         <link rel="stylesheet" href="~/lib/Ionicons/css/ionicons.min.css">
         <!-- Theme style -->
-        <link rel="stylesheet" href="~/lib/admin-lte/dist/css/AdminLTE.min.css">
-        <link rel="stylesheet" href="~/lib/admin-lte/dist/css/skins/_all-skins.min.css">
+        
         <link rel="stylesheet" href="~/lib/admin-lte/plugins/iCheck/square/red.css">
         <link rel="stylesheet" href="~/lib/datatables.net-bs/css/dataTables.bootstrap.min.css" />
         <link rel="stylesheet" href="~/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"/>
+        <link rel="stylesheet" href="~/lib/select2/dist/css/select2.min.css"/>
+        <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.3/css/rowReorder.dataTables.min.css"/>
+        <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.0/css/responsive.dataTables.min.css" />
+        <link rel="stylesheet" href="~/lib/admin-lte/dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="~/lib/admin-lte/dist/css/skins/_all-skins.min.css">
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
     <environment exclude="Development">
@@ -31,6 +35,9 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <script type="text/javascript">
+        var _instructorsTable;
+    </script>
 </head>
 @{string classes = ""; string page = ""; }
 @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "admin" && ViewContext.RouteData.Values["action"].ToString().ToLower() == "login")
@@ -283,7 +290,7 @@ else
                 <!-- /.container -->
             </footer>
         </div>
-                                                    }
+    }
     <!-- jQuery 3 -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
@@ -296,7 +303,13 @@ else
     <script src="~/lib/admin-lte/plugins/iCheck/icheck.min.js"></script>
     <script src="~/lib/admin-lte/dist/js/adminlte.min.js"></script>
     <script src="~/lib/admin-lte/dist/js/app.min.js"></script>
+    <script src="~/lib/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/rowreorder/1.2.3/js/dataTables.rowReorder.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.0/js/dataTables.responsive.min.js"></script>
     @RenderSection("scripts", required: false)
+    @if (page != "Login")
+    {
     <script type="text/javascript">
         $(document).ready(function () {
             $.ajax({
@@ -366,7 +379,12 @@ else
                 });
             });
         });
-
+        $(document).ajaxError(function (e, xhr, settings) {
+            if (xhr.status == 401) {
+                location = '@Url.Action("login", "admin")';
+            }
+        });
     </script>
+    }
 </body>
 </html>

@@ -1,7 +1,7 @@
 ﻿<div class="container-fluid">
     <div class="row" style="margin-bottom:10px;">
         <div class="col-lg-4 col-md-4" style="padding-left: 11px;">
-            <h3 style="margin:0px;">Add new Instructor</h3>
+            <h3 style="margin:0px;margin-top:6px;">Add Instructor's Detail</h3>
         </div>
         <div class="col-lg-4 col-md-4">
         </div>
@@ -31,7 +31,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" id="dateOfBirth">
+                                    <input type="text" class="form-control pull-right" id="dateOfBirth" name="dateOfBirth">
                                 </div>
                             </div>
                         </div>
@@ -53,12 +53,16 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-1 col-sm-2 col-xs-6">
-                                <input type="radio" id="_Gender" name="_Gender" value="1" checked="checked" />
-                                <label for="_Gender">Male</label>
+                                <label for="_GenderMale">
+                                    <input type="radio" id="_GenderMale" name="_Gender" value="1" checked />
+                                    Male
+                                </label>
                             </div>
                             <div class="col-md-1 col-sm-2 col-xs-6">
-                                <input type="radio" id="_Gender" name="_Gender" value="2" />
-                                <label for="_Gender">Female</label>
+                                <label for="_GenderFemale">
+                                    <input type="radio" id="_GenderFemale" name="_Gender" value="2" />
+                                    Female
+                                </label>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -218,7 +222,7 @@
                             <div class="col-lg-2 col-md-3">
                                 <div class="checkbox icheck">
                                     <label>
-                                        <input id="displayInstructorFlag" name="displayInstructorFlag" checked type="checkbox"> Display on Instructors Page ?
+                                        <input id="displayInstructorFlag" value="true" name="displayInstructorFlag" checked type="checkbox"/> Display on Instructors Page ?
                                     </label>
                                 </div>
                             </div>
@@ -229,8 +233,9 @@
             <!-- /.box-body -->
 
             <div class="box-footer">
-                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info"><i class="fa fa-plus"></i> Add</button>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info"><i class="fa fa-plus"></i> Add Details</button>
             </div>
+            <input name="DisplayInstructorFlag" type="hidden" value="false" />
         </form>
     </div>
 </div>
@@ -288,7 +293,8 @@
         });
         //Date picker
         $('#dateOfBirth').datepicker({
-            autoclose: true
+            autoclose: true,
+            format: "yyyy-mm-dd"
         });
 
         $('[data-mask]').inputmask();
@@ -296,6 +302,8 @@
             $.ajax({
                 url: "@Url.Action("instructors", "admin")",
                 success: function (data) {
+                    $('body').removeClass('modal-open');
+                    $("body").css("padding-right", "0px");
                     $(".modal-backdrop").remove();
                     $("#instructors").html(data);
                 }
@@ -324,6 +332,8 @@
                             $.ajax({
                                 url: "@Url.Action("instructors", "admin")",
                                 success: function (data) {
+                                    $('body').removeClass('modal-open');
+                                    $("body").css("padding-right","0px");
                                     $(".modal-backdrop").remove();
                                     $("#instructors").html(data);
                                 }

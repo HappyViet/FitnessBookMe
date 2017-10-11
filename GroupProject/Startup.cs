@@ -10,6 +10,9 @@ using GroupProject.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
+using Microsoft.Extensions.Options;
 
 namespace GroupProject
 {
@@ -26,7 +29,8 @@ namespace GroupProject
         public void ConfigureServices(IServiceCollection services)
         {
             string connectionString = Configuration.GetConnectionString("DB_Connection");
-            services.AddSingleton<DB_Context>();
+            services.AddScoped<DB_Context>();
+
             services.AddAuthentication("Fitness247UserAuthentication")
                 .AddCookie("Fitness247UserAuthentication", options =>
                 {
@@ -60,9 +64,13 @@ namespace GroupProject
                     options.ReturnUrlParameter = "RequestPath";
                     options.SlidingExpiration = true;
                 });
-
-
             services.AddRouting(options => options.LowercaseUrls = true);
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                options.DefaultRequestCulture = new RequestCulture("en-US");
+                options.DefaultRequestCulture.UICulture.DateTimeFormat.ShortDatePattern = "yyyy-MM-dd";
+                options.DefaultRequestCulture.Culture.DateTimeFormat.ShortDatePattern = "yyyy-MM-dd";
+            });
             services.AddMvc();
 
         }
@@ -78,9 +86,10 @@ namespace GroupProject
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseRequestLocalization();
             app.UseAuthentication();
-
             app.UseStaticFiles();
+            
 
             app.UseMvc(routes =>
             {

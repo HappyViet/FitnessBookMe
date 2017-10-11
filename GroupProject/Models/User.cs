@@ -34,7 +34,7 @@ namespace GroupProject.Models
 
         [Required]
         public DateTime DateOfBirth { get; set; }
-
+        
         [Required]
         public int _Gender { get; set; }
 
@@ -71,11 +71,9 @@ namespace GroupProject.Models
         [MaxLength(255)]
         public string Country { get; set; }
 
-        [MaxLength(10)]
-        public int? WorkPhone { get; set; }
+        public string WorkPhone { get; set; }
 
-        [MaxLength(10)]
-        public int? Phone { get; set; }
+        public string Phone { get; set; }
 
         [Required]
         public int _UserRole { get; set; }

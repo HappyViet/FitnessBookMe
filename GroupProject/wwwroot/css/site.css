@@ -23,3 +23,13 @@
 .list-group-item {
     background-color: whitesmoke;
 }
+
+.btn-app:active,
+.btn-app.active {
+    border:2px solid darkblue;
+}
+
+.btn-app:active,
+.btn-app:hover {
+    border-color: dodgerblue;
+}
