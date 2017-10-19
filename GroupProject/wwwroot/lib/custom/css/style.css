@@ -153,7 +153,7 @@ nav.navbar.navbar-default.navbar-fixed-top.top-nav-collapse {
 /*-- //banner-text --*/
 /*-- banner-top --*/
 .w3layouts-banner-top{
-    background: url(http://www.bespokecyclingstudio.com/wp-content/uploads/2016/03/An-indoor-cycling-studio-1024x666.jpg) no-repeat 0px 0px;
+    background: url('../images/Book.me.png') no-repeat 0px 0px;
     background-size: cover;	
 	-webkit-background-size: cover;	
 	-moz-background-size: cover;
@@ -162,7 +162,7 @@ nav.navbar.navbar-default.navbar-fixed-top.top-nav-collapse {
 	min-height:780px;
 }
 .w3layouts-banner-top1{
-	background: url(../images/2.jpg) no-repeat 0px 0px;
+	background: url(../images/Book.me.png) no-repeat 0px 0px;
     background-size: cover;	
 	-webkit-background-size: cover;	
 	-moz-background-size: cover;
@@ -171,7 +171,7 @@ nav.navbar.navbar-default.navbar-fixed-top.top-nav-collapse {
 	min-height:780px;
 }
 .w3layouts-banner-top2{
-	background: url(../images/3.jpg) no-repeat 0px 0px;
+	background: url(../images/Book.me.png) no-repeat 0px 0px;
     background-size: cover;	
 	-webkit-background-size: cover;	
 	-moz-background-size: cover;
@@ -383,16 +383,16 @@ nav.navbar.navbar-default.navbar-fixed-top.top-nav-collapse {
 }
 /*-- hover-effect --*/
 /*-- about --*/
-  .ab-w3-agile-img {
-    background: url(../images/ab.jpg) no-repeat 0px 0px;
+.ab-w3-agile-img {
+    background: url(https://img.grouponcdn.com/deal/6kgf8nXFjhxbNCLH2tRq/sT-2048x1229/v1/c700x420.jpg) no-repeat 0px 0px;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     -ms-background-size: cover;
-      min-height: 750px;
+    min-height: 750px;
     padding-top: 3em;
-	float:right;
+    float: right;
 }
 .ab-w3-agile-info{
 float:left;
