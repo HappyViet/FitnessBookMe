@@ -1,6 +1,6 @@
 ﻿@{
     User Model = ViewBag.User;
-    ViewData["Title"] = "Administrator Dashboard";
+    ViewData["Title"] = "Member Dashboard";
 }
 <!DOCTYPE html>
 <html>
@@ -17,14 +17,14 @@
         <!-- Ionicons -->
         <link rel="stylesheet" href="~/lib/Ionicons/css/ionicons.min.css">
         <!-- Theme style -->
-        
+
         <link rel="stylesheet" href="~/lib/admin-lte/plugins/iCheck/square/red.css">
         <link rel="stylesheet" href="~/lib/datatables.net-bs/css/dataTables.bootstrap.min.css" />
-        <link rel="stylesheet" href="~/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"/>
-        <link rel="stylesheet" href="~/lib/admin-lte/plugins/timepicker/bootstrap-timepicker.css"/>
-        <link rel="stylesheet" href="~/lib/select2/dist/css/select2.min.css"/>
+        <link rel="stylesheet" href="~/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" />
+        <link rel="stylesheet" href="~/lib/admin-lte/plugins/timepicker/bootstrap-timepicker.css" />
+        <link rel="stylesheet" href="~/lib/select2/dist/css/select2.min.css" />
         <link rel="stylesheet" href="~/lib/admin-lte/plugins/bootstrap-slider/slider.css" />
-        <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.3/css/rowReorder.dataTables.min.css"/>
+        <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.3/css/rowReorder.dataTables.min.css" />
         <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.0/css/responsive.dataTables.min.css" />
         <link rel="stylesheet" href="~/lib/admin-lte/dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="~/lib/admin-lte/dist/css/skins/_all-skins.min.css">
@@ -43,26 +43,9 @@
         var _instructorsTable;
     </script>
 </head>
-@{string classes = ""; string page = ""; }
-@if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "admin" && ViewContext.RouteData.Values["action"].ToString().ToLower() == "login")
-{
-    page = "Login";
-    classes = "hold-transition login-page";
-}
-else
-{
-    classes = "hold-transition layout-top-nav skin-red";
 
-}
-<body class="@classes" style="height: auto; min-height: 100%;">
-    @if (page == "Login")
-    {
-        @RenderBody()
-    }
-    else
-    {
-
-        <div class="wrapper">
+<body class="hold-transition layout-top-nav skin-red" style="height: auto; min-height: 100%;">
+    <div class="wrapper">
             <header class="main-header">
                 <nav class="navbar navbar-static-top">
                     <div class="container-fluid">
@@ -241,7 +224,7 @@ else
                                                 <a href="#" class="btn btn-default btn-flat">Profile</a>
                                             </div>
                                             <div class="pull-right">
-                                                <a asp-controller="Admin" asp-action="Logout" class="btn btn-default btn-flat">Sign out</a>
+                                                <a asp-controller="User" asp-action="Logout" class="btn btn-default btn-flat">Sign out</a>
                                             </div>
                                         </li>
                                     </ul>
@@ -258,20 +241,14 @@ else
                 <div class="container-fluid">
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
-                        <a class="btn btn-app active" id="Dashboard">
-                            <i class="fa fa-dashboard"></i> Dashboard
+                        <a class="btn btn-app active" id="bookingsCalendar">
+                            <i class="fa fa-dashboard"></i> Schedule Calendar
                         </a>
-                        <a class="btn btn-app" id="Reservations">
-                            <i class="fa fa-user-plus"></i> Reservations
+                        <a class="btn btn-app" id="MyReservations">
+                            <i class="fa fa-user-plus"></i>My Reservations
                         </a>
-                        <a class="btn btn-app" id="Schedules">
-                            <i class="fa fa-calendar-check-o"></i> Schedules
-                        </a>
-                        <a class="btn btn-app" id="Members">
-                            <i class="fa fa-users"></i> Members
-                        </a>
-                        <a class="btn btn-app" id="Configure">
-                            <i class="fa fa-tasks"></i> Configure
+                        <a class="btn btn-app" id="MyPurchases">
+                            <i class="fa fa-dollar"></i>My Purchases
                         </a>
                     </section>
                     <!-- Main content -->
@@ -294,7 +271,6 @@ else
                 <!-- /.container -->
             </footer>
         </div>
-    }
     <!-- jQuery 3 -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
@@ -312,12 +288,10 @@ else
     <script type="text/javascript" src="https://cdn.datatables.net/rowreorder/1.2.3/js/dataTables.rowReorder.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.0/js/dataTables.responsive.min.js"></script>
     @RenderSection("scripts", required: false)
-    @if (page != "Login")
-    {
     <script type="text/javascript">
         $(document).ready(function () {
             $.ajax({
-                url: "@Url.Action("dashboard", "admin")",
+                url: "@Url.Action("bookingsCalendar", "user")",
                 success: function (data) {
                     $("#MainContainer").html(data);
                 }
@@ -326,69 +300,45 @@ else
 
                 $(".btn-app").removeClass("active");
             }
-            $("#Dashboard").click(function () {
+            $("#bookingsCalendar").click(function () {
                 $.ajax({
-                    url: "@Url.Action("dashboard", "admin")",
+                    url: "@Url.Action("bookingsCalendar", "user")",
                     success: function (data) {
                         $("#MainContainer").html(data);
-                        document.title = 'Administrator Dashboard - GroupProject';
+                        document.title = 'Member Dashboard - GroupProject';
                         resetActiveLink();
-                        $("#Dashboard").addClass("active");
+                        $("#bookingsCalendar").addClass("active");
                     }
                 });
             });
-            $("#Reservations").click(function () {
+            $("#MyReservations").click(function () {
                 $.ajax({
-                    url: "@Url.Action("reservations", "admin")",
+                    url: "@Url.Action("myReservations", "user")",
                     success: function (data) {
                         $("#MainContainer").html(data);
-                        document.title = 'Reservations - GroupProject';
+                        document.title = 'My Reservations - GroupProject';
                         resetActiveLink();
-                        $("#Reservations").addClass("active");
+                        $("#MyReservations").addClass("active");
                     }
                 });
             });
-            $("#Schedules").click(function () {
+            $("#MyPurchases").click(function () {
                 $.ajax({
-                    url: "@Url.Action("classSchedules", "admin")",
+                    url: "@Url.Action("myPurchases", "user")",
                     success: function (data) {
                         $("#MainContainer").html(data);
-                        document.title = 'Schedules - GroupProject';
+                        document.title = 'My Purchases - GroupProject';
                         resetActiveLink();
-                        $("#Schedules").addClass("active");
-                    }
-                });
-            });
-            $("#Members").click(function () {
-                $.ajax({
-                    url: "@Url.Action("members", "admin")",
-                    success: function (data) {
-                        $("#MainContainer").html(data);
-                        document.title = 'Members - GroupProject';
-                        resetActiveLink();
-                        $("#Members").addClass("active");
-
-                    }
-                });
-            });
-            $("#Configure").click(function () {
-                $.ajax({
-                    url: "@Url.Action("configure", "admin")",
-                    success: function (data) {
-                        $("#MainContainer").html(data);
-                        document.title = 'Configure - GroupProject';
-                        resetActiveLink();
-                        $("#Configure").addClass("active");
+                        $("#MyPurchases").addClass("active");
                     }
                 });
             });
         });
         $(document).ajaxError(function (e, xhr, settings) {
             if (xhr.status == 401) {
-                location = '@Url.Action("login", "admin")';
+                location = '@Url.Action("login", "user")';
             }
         });
     </script>
-    }
 </body>
 </html>

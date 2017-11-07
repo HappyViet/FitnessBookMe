@@ -24,6 +24,8 @@ namespace GroupProject.Models
         public string SoundCloudURL { get; set; }
         [Required]
         public bool DisplayInstructorFlag { get; set; }
-        
+
+        public virtual ICollection<ClassType> ClassTypes { get; set; }
+        public virtual ICollection<Class> Classes { get; set; }
     }
 }

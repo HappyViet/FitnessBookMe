@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace GroupProject
 {
@@ -71,7 +72,9 @@ namespace GroupProject
                 options.DefaultRequestCulture.UICulture.DateTimeFormat.ShortDatePattern = "yyyy-MM-dd";
                 options.DefaultRequestCulture.Culture.DateTimeFormat.ShortDatePattern = "yyyy-MM-dd";
             });
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options => {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
 
         }
 

@@ -39,5 +39,9 @@ namespace GroupProject.Models
         [Required]
         public string TimeZone { get; set; }
 
+
+        public virtual ICollection<ClassType> ClassTypes { get; set; }
+
+        public virtual ICollection<RoomLayout> RoomLayouts { get; set; }
     }
 }
