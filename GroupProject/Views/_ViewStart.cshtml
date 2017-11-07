@@ -4,4 +4,9 @@
     {
         Layout = "_AdminLayout";
     }
+    if(ViewContext.RouteData.Values["controller"].ToString().ToLower()=="user")
+    {
+        Layout = "_UserLayout";
+
+    }
 }

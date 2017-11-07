@@ -101,7 +101,7 @@
                 <h4 class="modal-title">Attention!</h4>
             </div>
             <div class="modal-body">
-                <h4>Are you sure you want to go back to Locations Page ?</h4>
+                <h4>Are you sure you want to go back to Class Packages Page ?</h4>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i><div>No</div></button>
@@ -173,10 +173,10 @@
                 async: true,
                 success: function (data) {
                     if (data == true) {
-                        $("#SaveLocation i").removeClass("fa-spinner fa-pulse fa-fw");
-                        $("#SaveLocation i").addClass("fa-check");
-                        $("#SaveLocation div").text("Saved Changes");
-                        $("#SaveLocation").removeAttr("disabled");
+                        $("#SaveClassPackage i").removeClass("fa-spinner fa-pulse fa-fw");
+                        $("#SaveClassPackage i").addClass("fa-check");
+                        $("#SaveClassPackage div").text("Saved Changes");
+                        $("#SaveClassPackage").removeAttr("disabled");
                         $("#VerifyBtn").removeAttr("disabled");
                         setTimeout(function () {
                             $.ajax({

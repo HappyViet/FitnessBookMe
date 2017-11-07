@@ -6,7 +6,8 @@
     "jquery": "2.2.0",
     "jquery-validation": "1.14.0",
     "jquery-validation-unobtrusive": "3.2.6",
-    "admin-lte": "v2.4.0-rc"
+    "admin-lte": "v2.4.0-rc",
+    "bootstrap-contextmenu": "0.3.4"
   },
   "resolutions": {
     "jquery": "^3.2.1"
