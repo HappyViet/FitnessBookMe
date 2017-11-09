@@ -98,11 +98,6 @@ namespace GroupProject.Controllers
             return PartialView();
         }
 
-        public PartialViewResult Schedules()
-        {
-            return PartialView();
-        }
-
         public PartialViewResult Members()
         {
             return PartialView();
@@ -282,7 +277,7 @@ namespace GroupProject.Controllers
 
             if (searchParam[0].Trim() != "")
             {
-                filteredClassPackages = db_context.ClassPackages.AsNoTracking().Where(x => x.ClassPackageName==searchParam[0]||x.ClassPackageDescription==searchParam[0]||x.Badge==searchParam[0]).Skip(int.Parse(start)).Take(int.Parse(length)).ToList<dynamic>();
+                filteredClassPackages = db_context.ClassPackages.AsNoTracking().Where(x => x.ClassPackageName.Contains(searchParam[0])||x.ClassPackageDescription.Contains(searchParam[0])||x.Badge.Contains(searchParam[0])).Skip(int.Parse(start)).Take(int.Parse(length)).ToList<dynamic>();
                 filterCount = filteredClassPackages.Count();
             }
 
@@ -317,6 +312,218 @@ namespace GroupProject.Controllers
         {
             ClassPackage model = db_context.ClassPackages.Single(x => x.ClassPackageID == ClassPackage.ClassPackageID);
             db_context.Entry(model).CurrentValues.SetValues(ClassPackage);
+            int result = db_context.SaveChanges();
+            return Json(true);
+        }
+        #endregion
+
+        #region Class Types
+        public PartialViewResult ClassTypes()
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        public JsonResult GetClassTypes()
+        {
+            var searchParam = HttpContext.Request.Form["search[value]"];
+            var start = HttpContext.Request.Form["start"][0];
+            var length = HttpContext.Request.Form["length"][0];
+            var totalCount = db_context.ClassTypes.Count();
+            var filterCount = db_context.ClassTypes.Count();
+            List<dynamic> filteredClassTypes = db_context.ClassTypes.Include(c=>c.Location).Include(c=>c.Instructor).AsNoTracking().Skip(int.Parse(start)).Take(int.Parse(length)).ToList<dynamic>();
+
+            if (searchParam[0].Trim() != "")
+            {
+                filteredClassTypes = db_context.ClassTypes.Include(c => c.Location).Include(c => c.Instructor).AsNoTracking().Where(x => x.ClassName.Contains(searchParam[0]) || x.ClassDescription.Contains(searchParam[0]) || x.Location.LocationName.Contains(searchParam[0]) || x.Instructor.FirstName.Contains(searchParam[0]) || x.Instructor.LastName.Contains(searchParam[0])).Skip(int.Parse(start)).Take(int.Parse(length)).ToList<dynamic>();
+                filterCount = filteredClassTypes.Count();
+            }
+
+            dynamic data = new
+            {
+                draw = HttpContext.Request.Form["draw"],
+                recordsTotal = totalCount,
+                recordsFiltered = filterCount,
+                data = filteredClassTypes
+            };
+            return Json(data);
+        }
+
+        public PartialViewResult AddClassType()
+        {
+            ViewBag.Locations= db_context.Locations.AsNoTracking().ToList<Location>();
+            ViewBag.Instructors= db_context.Instructors.AsNoTracking().ToList<Instructor>();
+            return PartialView();
+        }
+
+        [HttpPost]
+        public JsonResult AddClassType(ClassType ClassType)
+        {
+            db_context.ClassTypes.Add(ClassType);
+            db_context.SaveChanges();
+            return Json(true);
+        }
+
+        public async Task<PartialViewResult> UpdateClassType(int ClassTypeID)
+        {
+            ClassType model = await db_context.ClassTypes.AsNoTracking().SingleAsync(x => x.ClassTypeID == ClassTypeID);
+            ViewBag.Locations = db_context.Locations.AsNoTracking().ToList<Location>();
+            ViewBag.Instructors = db_context.Instructors.AsNoTracking().ToList<Instructor>();
+            return PartialView(model);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateClassType(ClassType ClassType)
+        {
+            ClassType model = db_context.ClassTypes.Single(x => x.ClassTypeID == ClassType.ClassTypeID);
+            db_context.Entry(model).CurrentValues.SetValues(ClassType);
+            int result = db_context.SaveChanges();
+            return Json(true);
+        }
+        #endregion
+
+        #region Room Layout
+        public PartialViewResult RoomLayouts()
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        public JsonResult GetRoomLayouts()
+        {
+            var searchParam = HttpContext.Request.Form["search[value]"];
+            var start = HttpContext.Request.Form["start"][0];
+            var length = HttpContext.Request.Form["length"][0];
+            var totalCount = db_context.RoomLayouts.Count();
+            var filterCount = db_context.RoomLayouts.Count();
+            List<dynamic> filteredRoomLayouts = db_context.RoomLayouts.Include(c => c.Location).AsNoTracking().Skip(int.Parse(start)).Take(int.Parse(length)).ToList<dynamic>();
+
+            if (searchParam[0].Trim() != "")
+            {
+                filteredRoomLayouts = db_context.RoomLayouts.Include(c => c.Location).AsNoTracking().Where(x => x.RoomName.Contains(searchParam[0]) || x.Location.LocationName.Contains(searchParam[0])).Skip(int.Parse(start)).Take(int.Parse(length)).ToList<dynamic>();
+                filterCount = filteredRoomLayouts.Count();
+            }
+
+            dynamic data = new
+            {
+                draw = HttpContext.Request.Form["draw"],
+                recordsTotal = totalCount,
+                recordsFiltered = filterCount,
+                data = filteredRoomLayouts
+            };
+            return Json(data);
+        }
+
+        public PartialViewResult AddRoomLayout()
+        {
+            ViewBag.Locations = db_context.Locations.AsNoTracking().ToList<Location>();
+            return PartialView();
+        }
+
+        [HttpPost]
+        public JsonResult AddRoomLayout(RoomLayout RoomLayout)
+        {
+            db_context.RoomLayouts.Add(RoomLayout);
+            db_context.SaveChanges();
+            return Json(true);
+        }
+
+        public async Task<PartialViewResult> UpdateRoomLayout(int RoomLayoutID)
+        {
+            RoomLayout model = await db_context.RoomLayouts.AsNoTracking().SingleAsync(x => x.RoomLayoutID == RoomLayoutID);
+            ViewBag.Locations = db_context.Locations.AsNoTracking().ToList<Location>();
+            return PartialView(model);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateRoomLayout(RoomLayout RoomLayout)
+        {
+            RoomLayout model = db_context.RoomLayouts.Single(x => x.RoomLayoutID == RoomLayout.RoomLayoutID);
+            db_context.Entry(model).CurrentValues.SetValues(RoomLayout);
+            int result = db_context.SaveChanges();
+            return Json(true);
+        }
+        #endregion
+
+        #region Class Schedules
+        public PartialViewResult ClassSchedules()
+        {
+            return PartialView();
+        }
+        [HttpPost]
+        public JsonResult GetClassSchedules()
+        {
+            var searchParam = HttpContext.Request.Form["search[value]"];
+            var start = HttpContext.Request.Form["start"][0];
+            var length = HttpContext.Request.Form["length"][0];
+            var totalCount = db_context.ClassSchedules.Count();
+            var filterCount = db_context.ClassSchedules.Count();
+            List<dynamic> filteredClassSchedules = db_context.ClassSchedules.Include(c => c.ClassType).ThenInclude(c=>c.Location).Include(c=>c.ClassType).ThenInclude(c=>c.Instructor).Include(r=>r.RoomLayout).AsNoTracking().Skip(int.Parse(start)).Take(int.Parse(length)).ToList<dynamic>();
+            
+            if (searchParam[0].Trim() != "")
+            {
+                filteredClassSchedules = db_context.ClassSchedules.Include(c => c.ClassType).ThenInclude(c=>c.Location).Include(c => c.ClassType).ThenInclude(c => c.Instructor).Include(r => r.RoomLayout).AsNoTracking().Where(x => x.ClassType.ClassName.Contains(searchParam[0]) || x.RoomLayout.RoomName.Contains(searchParam[0])).Skip(int.Parse(start)).Take(int.Parse(length)).ToList<dynamic>();
+                filterCount = filteredClassSchedules.Count();
+            }
+
+            dynamic data = new
+            {
+                draw = HttpContext.Request.Form["draw"],
+                recordsTotal = totalCount,
+                recordsFiltered = filterCount,
+                data = filteredClassSchedules
+            };
+            return Json(data);
+        }
+
+        public PartialViewResult AddClassSchedule()
+        {
+            ViewBag.RoomLayouts = db_context.RoomLayouts.AsNoTracking().ToList<RoomLayout>();
+            ViewBag.ClassTypes = db_context.ClassTypes.AsNoTracking().ToList<ClassType>();
+            return PartialView();
+        }
+
+        [HttpPost]
+        public JsonResult AddClassSchedule(ClassSchedule ClassSchedule)
+        {
+            db_context.ClassSchedules.Add(ClassSchedule);
+
+            for (DateTime date = ClassSchedule.StartDate; date.Date <= ClassSchedule.EndDate.Date; date = date.AddDays(1))
+            {
+                if (ClassSchedule.Days.Contains(date.ToString("ddd")))
+                {
+                    Class c = new Class()
+                    {
+                        ClassScheduleID = ClassSchedule.ClassScheduleID,
+                        ClassTypeID = ClassSchedule.ClassTypeID,
+                        StartDate = ClassSchedule.StartDate,
+                        EndDate = ClassSchedule.EndDate,
+                        StartTime = ClassSchedule.StartTime,
+                        EndTime = ClassSchedule.EndTime,
+                        AllowWaitlist = true,
+                        IsCancelled = false
+                    };
+                    db_context.Classes.Add(c);
+                }
+            }
+
+            db_context.SaveChanges();
+            return Json(true);
+        }
+
+        public async Task<PartialViewResult> UpdateClassSchedule(int ClassScheduleID)
+        {
+            ClassSchedule model = await db_context.ClassSchedules.AsNoTracking().SingleAsync(x => x.ClassScheduleID == ClassScheduleID);
+            ViewBag.RoomLayouts = db_context.RoomLayouts.AsNoTracking().ToList<RoomLayout>();
+            ViewBag.ClassTypes = db_context.ClassTypes.AsNoTracking().ToList<ClassType>();
+            return PartialView(model);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateClassSchedule(ClassSchedule ClassSchedule)
+        {
+            ClassSchedule model = db_context.ClassSchedules.Single(x => x.ClassScheduleID == ClassSchedule.ClassScheduleID);
+            db_context.Entry(model).CurrentValues.SetValues(ClassSchedule);
             int result = db_context.SaveChanges();
             return Json(true);
         }

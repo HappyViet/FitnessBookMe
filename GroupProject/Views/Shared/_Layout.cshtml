@@ -103,11 +103,11 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
                             <li class="hidden"><a class="page-scroll" href="#page-top"></a> </li>
                             <li><a class="page-scroll scroll" href="#home">Home</a></li>
-                            <li><a class="page-scroll scroll" href="#about">About</a></li>
+                            <li><a class="page-scroll scroll" href="#signIn">Sign In</a></li>
                             <li><a class="page-scroll scroll" href="#classes">Classes</a></li>
                             <li><a class="page-scroll scroll" href="#instructors">Instructors</a></li>
                             <li><a class="page-scroll scroll" href="#contact">Contact</a></li>
-                            <li><a class="page-scroll " href="/admin/login">Sign In</a></li>
+                            <li><a class="page-scroll " href="/admin/login">Admin Portal</a></li>
                         </ul>
                     </div>
                     <!-- /.navbar-collapse -->
@@ -118,35 +118,52 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         <!-- //header -->
     </div>
     <!-- //banner -->
+    <!-- Contact -->
+
+
+    <div class="contact" id="signIn">
+        <div id="particles-js2"></div>
+        <div class="contact-top">
+
+            <h3 class="title-w3 con">Sign In</h3>
+            
+
+            <form asp-controller="User" asp-action="Login" method="post" class="contact_form slideanim">
+                <input type="hidden" name="RequestPath" id="RequestPath" value="/user">
+                <div class="message">
+                    <div class="col-md-3 col-sm-3 grid_3 c1"></div>
+                    <div class="col-md-6 col-sm-6 grid_6 c1">
+                        <input type="text" class="margin-right" id="Username" Name="Username" placeholder="Enter Username or Email" required="">
+                        <input type="password" Name="Password" id="Password" placeholder="Password" required="" style="width: 100%;border-radius: 0;line-height: 22px;font-size: 14px;padding: 14px 17px 14px;outline: none;color: #FFF;height: 50px;border: 1px solid #424141;margin: 0 0 20px;background: rgba(239, 235, 235, 0.18);letter-spacing: 1px;">
+                    </div>
+
+                    <div class="col-md-3 col-sm-3 grid_3 c1">
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+                <input type="submit" value="Sign In">
+            </form>
+            
+        </div>
+    </div>
+    <!-- //Contact -->
     <!-- about -->
-    <div class="about" id="about">
+    @*<div class="about" id="about">
         <div class="col-md-6 ab-w3-agile-info">
             <div class="ab-w3-agile-info-text">
-                <h2 class="title-w3">About Us</h2>
-                <p class="sub-text one">Choose Your Style</p>
-                <p></p>
-                <div class="agileits_w3layouts_more menu__item one">
-                    <a href="#" class="menu__link" data-toggle="modal" data-target="#myModal">Learn More</a>
-                </div>
+                <h2 class="title-w3">Sign In</h2>
+                <p class="sub-text one"></p>
+                <p></p>              
             </div>
-            <div class="ab-w3-agile-inner">
-                <div class="col-md-6 ab-w3-agile-part">
-                    <h4>Upcoming Classes</h4>
-                    <p></p>
-                </div>
-                <div class="col-md-6 ab-w3-agile-part two">
-                    <h4>New Classes</h4>
-                    <p></p>
-                </div>
-                <div class="clearfix"></div>
-            </div>
+            
         </div>
         <div class="col-md-6 ab-w3-agile-img">
 
         </div>
 
         <div class="clearfix"></div>
-    </div>
+    </div>*@
     <!-- //about -->
     <!-- Modal1 -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
@@ -588,8 +605,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 
         </div>
     </div>
-    <!--//prices -->
-    <!-- Contact -->
     <div class="agile-contact">
 
         <div class="col-md-6 contact-map-right">
@@ -617,45 +632,8 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         </div>
         <div class="clearfix"></div>
     </div>
+    <!--//prices -->
 
-    <div class="contact" id="contact">
-        <div id="particles-js2"></div>
-        <div class="contact-top">
-
-            <h3 class="title-w3 con">Contact Us</h3>
-            <p class="sub-text">Choose Your Style</p>
-
-            <form action="#" method="post" class="contact_form slideanim">
-
-                <div class="message">
-                    <div class="col-md-6 col-sm-6 grid_6 c1">
-                        <input type="text" class="margin-right" Name="Name" placeholder="Name" required="">
-                        <input type="email" Name="Email" placeholder="Email" required="">
-                        <input type="text" class="margin-right" Name="Phone Number" placeholder="Phone Number" required="">
-                    </div>
-
-                    <div class="col-md-6 col-sm-6 grid_6 c1">
-<textarea name="Message" placeholder="Message" required=""></textarea>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-
-                <input type="submit" value="SEND MESSAGE">
-            </form>
-            <section class="social">
-                <ul>
-                    <li><a class="icon fb" href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a class="icon tw" href="#"><i class="fa fa-twitter"></i></a></li>
-
-
-                    <li><a class="icon pin" href="#"><i class="fa fa-pinterest"></i></a></li>
-                    <li><a class="icon db" href="#"><i class="fa fa-dribbble"></i></a></li>
-                    <li><a class="icon gp" href="#"><i class="fa fa-google-plus"></i></a></li>
-                </ul>
-            </section>
-        </div>
-    </div>
-    <!-- //Contact -->
     <!-- footer -->
     <div class="copy-right">
         <p>Book.me</p>
