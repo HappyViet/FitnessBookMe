@@ -25,6 +25,10 @@ namespace GroupProject.Models
         [Required]
         public bool DisplayInstructorFlag { get; set; }
 
+        [Required]
+        public long? LocationID { get; set; }
+        public virtual Location Location { get; set; }
+
         public virtual ICollection<ClassType> ClassTypes { get; set; }
         public virtual ICollection<Class> Classes { get; set; }
     }

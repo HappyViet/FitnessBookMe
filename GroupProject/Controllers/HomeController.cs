@@ -10,27 +10,22 @@ using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.EntityFrameworkCore;
 
 namespace GroupProject.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private DB_Context db_context;
+        public HomeController(DB_Context db_context)
         {
-            return View();
+            this.db_context = db_context;
         }
-
-        public IActionResult About()
+        public IActionResult Index(string Error="",string RegisterMessage="")
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
+            ViewBag.Locations = db_context.Locations.AsNoTracking().ToList<Location>();
+            ViewBag.LoginError = Error;
+            ViewBag.RegisterMessage = RegisterMessage;
             return View();
         }
 

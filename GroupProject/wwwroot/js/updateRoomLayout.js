@@ -205,7 +205,7 @@ function setHighlight() {
         $(element).unbind('touchmove');
         $(element).mousedown(function (event) {
             if (event.which == 1) {
-                if (event.target.nodeName == "TD" || event.target.nodeName == "DIV") {
+                if (event.target.nodeName == "TD" || event.target.nodeName == "DIV" || event.target.nodeName == "I" || event.target.nodeName == "SPEAKER" || event.target.nodeName == "TV" || event.target.nodeName == "INSTRUCTOR") {
                     isMouseDown = true;
                     $(element).toggleClass("highlighted");
                     isHighlighted = $(element).hasClass("highlighted");

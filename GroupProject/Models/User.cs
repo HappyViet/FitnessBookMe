@@ -32,10 +32,10 @@ namespace GroupProject.Models
         [MaxLength(50)]
         public string Password { get; set; }
 
-        [Required]
+
         public DateTime DateOfBirth { get; set; }
         
-        [Required]
+
         public int _Gender { get; set; }
 
         public string Gender
@@ -50,24 +50,24 @@ namespace GroupProject.Models
             }
         }
 
-        [Required]
+
         public string AddressLine1 { get; set; }
 
-        [Required]
+  
         public string AddressLine2 { get; set; }
 
-        [Required]
+ 
         [MaxLength(255)]
         public string City { get; set; }
 
-        [Required]
+
         [MaxLength(255)]
         public string State { get; set; }
 
-        [Required]
+      
         public int Pincode { get; set; }
 
-        [Required]
+    
         [MaxLength(255)]
         public string Country { get; set; }
 
@@ -75,10 +75,10 @@ namespace GroupProject.Models
 
         public string Phone { get; set; }
 
-        [Required]
+       
         public int _UserRole { get; set; }
 
-        [Required]
+        
         public bool ActivatedFlag { get; set; }
 
         public bool DeletedFlag { get; set; }
@@ -101,5 +101,7 @@ namespace GroupProject.Models
 
         [NotMapped]
         public string Designation { get; set; }
+
+        public virtual ICollection<Reservation> Reservations { get; set; }
     }
 }

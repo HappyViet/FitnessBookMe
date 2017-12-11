@@ -2,6 +2,7 @@
     User Model = ViewBag.User;
     ViewData["Title"] = "Member Dashboard";
 }
+@using GroupProject.Constants;
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>@ViewData["Title"] - GroupProject</title>
 
-    <environment include="Development">
+    @*<environment include="Development">*@
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <!-- Font Awesome -->
         <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css">
@@ -31,20 +32,23 @@
         <link rel="stylesheet" href="~/fonts/material-design/material-design.min.css">
 
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-    </environment>
-    <environment exclude="Development">
+        <link rel="stylesheet" href="~/css/desktopViewCalendar.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/BookingSeatMatrix.css" asp-append-version="true" />
+    @*</environment>*@
+    @*<environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-    </environment>
+        <link rel="stylesheet" href="~/css/desktopViewCalendar.css" asp-append-version="true" />
+    </environment>*@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <script type="text/javascript">
         var _instructorsTable;
     </script>
 </head>
 
-<body class="hold-transition layout-top-nav skin-red" style="height: auto; min-height: 100%;">
+<body class="hold-transition layout-top-nav skin-blue" style="height: auto; min-height: 100%;">
     <div class="wrapper">
             <header class="main-header">
                 <nav class="navbar navbar-static-top">
@@ -81,7 +85,7 @@
                         <div class="navbar-custom-menu">
                             <ul class="nav navbar-nav">
                                 <!-- Messages: style can be found in dropdown.less-->
-                                <li class="dropdown messages-menu">
+                                @*<li class="dropdown messages-menu">
                                     <!-- Menu toggle button -->
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                         <i class="fa fa-envelope-o"></i>
@@ -176,7 +180,7 @@
                                             <a href="#">View all tasks</a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li>*@
                                 <!-- User Account Menu -->
                                 <li class="dropdown user user-menu">
                                     <!-- Menu Toggle Button -->
@@ -221,7 +225,7 @@
                                         <!-- Menu Footer-->
                                         <li class="user-footer">
                                             <div class="pull-left">
-                                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                                @*<a href="#" class="btn btn-default btn-flat">Profile</a>*@
                                             </div>
                                             <div class="pull-right">
                                                 <a asp-controller="User" asp-action="Logout" class="btn btn-default btn-flat">Sign out</a>
@@ -242,14 +246,14 @@
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
                         <a class="btn btn-app active" id="bookingsCalendar">
-                            <i class="fa fa-dashboard"></i> Schedule Calendar
+                            <i class="fa fa-calendar-check-o"></i> Schedule Calendar
                         </a>
                         <a class="btn btn-app" id="MyReservations">
                             <i class="fa fa-user-plus"></i>My Reservations
                         </a>
-                        <a class="btn btn-app" id="MyPurchases">
+                        @*<a class="btn btn-app" id="MyPurchases">
                             <i class="fa fa-dollar"></i>My Purchases
-                        </a>
+                        </a>*@
                     </section>
                     <!-- Main content -->
                     <section id="MainContainer" class="content">
@@ -289,9 +293,12 @@
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.0/js/dataTables.responsive.min.js"></script>
     @RenderSection("scripts", required: false)
     <script type="text/javascript">
+        @{
+            Location l = ViewBag.Location;
+        }
         $(document).ready(function () {
             $.ajax({
-                url: "@Url.Action("bookingsCalendar", "user")",
+                url: "@Html.Raw(Url.Action("bookingsCalendar", "user",new { locationID = l.LocationID,startDate= DateTimeExtensions.StartOfWeek(DateTime.Now,DayOfWeek.Sunday).ToShortDateString(),endDate= DateTimeExtensions.StartOfWeek(DateTime.Now, DayOfWeek.Sunday).AddDays(6).ToShortDateString() }))",
                 success: function (data) {
                     $("#MainContainer").html(data);
                 }
@@ -302,7 +309,7 @@
             }
             $("#bookingsCalendar").click(function () {
                 $.ajax({
-                    url: "@Url.Action("bookingsCalendar", "user")",
+                    url: "@Html.Raw(Url.Action("bookingsCalendar", "user",new { locationID = l.LocationID,startDate= DateTimeExtensions.StartOfWeek(DateTime.Now,DayOfWeek.Sunday).ToShortDateString(),endDate= DateTimeExtensions.StartOfWeek(DateTime.Now, DayOfWeek.Sunday).AddDays(6).ToShortDateString() }))",
                     success: function (data) {
                         $("#MainContainer").html(data);
                         document.title = 'Member Dashboard - GroupProject';
@@ -336,9 +343,20 @@
         });
         $(document).ajaxError(function (e, xhr, settings) {
             if (xhr.status == 401) {
-                location = '@Url.Action("login", "user")';
+                location = '/';
             }
         });
+        function formatAMPM(d) {
+            var date = new Date(d);
+            var hours = date.getUTCHours();
+            var minutes = date.getUTCMinutes();
+            var ampm = hours >= 12 ? 'pm' : 'am';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            var strTime = hours + ':' + minutes + ' ' + ampm;
+            return strTime;
+        }
     </script>
 </body>
 </html>

@@ -1,5 +1,7 @@
 ﻿using GroupProject.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -18,10 +20,14 @@ namespace GroupProject
         public virtual DbSet<RoomLayout> RoomLayouts { get; set; }
         public virtual DbSet<ClassSchedule> ClassSchedules { get; set; }
         public virtual DbSet<Class> Classes { get; set; }
+        public virtual DbSet<Reservation> Reservations { get; set; }
+
+        public static readonly LoggerFactory MyLoggerFactory = new LoggerFactory(new[] { new ConsoleLoggerProvider((_, __) => true, true) });
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
+                optionsBuilder.UseLoggerFactory(MyLoggerFactory);
                 optionsBuilder.UseMySql("Server=localhost;Port=3306;Uid=root;Pwd=;Database=bookings");
             }
         }
@@ -40,11 +46,16 @@ namespace GroupProject
                 modelBuilder.Entity<User>().ToTable("users")
                 .Property(e => e.DateOfBirth).HasColumnType("Date");
 
+                modelBuilder.Entity<Instructor>().ToTable("classes")
+               .HasOne(c => c.Location)
+               .WithMany(c => c.Instructors)
+               .HasForeignKey(c => c.LocationID).IsRequired(false);
+
                 modelBuilder.Entity<User>().ToTable("users")
                 .HasDiscriminator<string>("Discriminator")
                 .HasValue<User>("NormalUser")
                 .HasValue<Instructor>("SystemUser");
-                
+
             });
 
             modelBuilder.Entity<Location>(entity =>
@@ -54,15 +65,14 @@ namespace GroupProject
                 .ValueGeneratedOnAdd();
             });
 
-            modelBuilder.Entity<ClassPackage>(entity=> {
+            modelBuilder.Entity<ClassPackage>(entity =>
+            {
                 modelBuilder.Entity<ClassPackage>().ToTable("class_packages")
                 .Property(c => c.ClassPackageID)
                 .ValueGeneratedOnAdd();
-                modelBuilder.Entity<ClassPackage>().ToTable("class_packages")
-               .Property(e => e.ExpirationDate).HasColumnType("Date");
             });
 
-            modelBuilder.Entity<ClassType>(entity=>
+            modelBuilder.Entity<ClassType>(entity =>
             {
                 modelBuilder.Entity<ClassType>().ToTable("class_types")
                 .Property(c => c.ClassTypeID)
@@ -95,7 +105,8 @@ namespace GroupProject
                 .HasConstraintName("FK_RoomLayout_Location_LocationID");
             });
 
-            modelBuilder.Entity<ClassSchedule>(entity => {
+            modelBuilder.Entity<ClassSchedule>(entity =>
+            {
                 modelBuilder.Entity<ClassSchedule>().ToTable("class_schedules")
                 .Property(c => c.ClassScheduleID)
                 .ValueGeneratedOnAdd();
@@ -114,7 +125,7 @@ namespace GroupProject
 
                 modelBuilder.Entity<ClassSchedule>().ToTable("class_schedules")
                 .HasOne(c => c.ClassType)
-                .WithMany(c=>c.ClassSchedules)
+                .WithMany(c => c.ClassSchedules)
                 .HasForeignKey(c => c.ClassTypeID)
                 .HasConstraintName("FK_ClassSchedule_ClassType_ClassTypeID");
 
@@ -128,11 +139,14 @@ namespace GroupProject
                 .Ignore(p => p.SelectedDays);
             });
 
-            modelBuilder.Entity<Class>(entity => {
+            modelBuilder.Entity<Class>(entity =>
+            {
                 modelBuilder.Entity<Class>().ToTable("classes")
                .Property(c => c.ClassID)
                .ValueGeneratedOnAdd();
 
+                modelBuilder.Entity<Class>().ToTable("classes")
+                .Ignore(p => p.DisabledForView);
 
                 modelBuilder.Entity<Class>().ToTable("classes")
                 .Property(e => e.StartDate).HasColumnType("Date");
@@ -160,6 +174,31 @@ namespace GroupProject
                 .HasOne(c => c.SubstituteInstructor)
                 .WithMany(c => c.Classes)
                 .HasForeignKey(c => c.InstructorID).IsRequired(false);
+            });
+
+            modelBuilder.Entity<Reservation>(entity =>
+            {
+                modelBuilder.Entity<Reservation>().ToTable("reservations")
+                .Property(c => c.ReservationID)
+                .ValueGeneratedOnAdd();
+
+                modelBuilder.Entity<Reservation>().ToTable("reservations")
+               .Property(e => e.ReservationDate).HasColumnType("DateTime");
+
+                modelBuilder.Entity<Reservation>().ToTable("reservations")
+                .HasOne(c => c.Class)
+                .WithMany(c => c.Reservations)
+                .HasForeignKey(c => c.ClassID);
+
+                modelBuilder.Entity<Reservation>().ToTable("reservations")
+                .HasOne(c => c.User)
+                .WithMany(c => c.Reservations)
+                .HasForeignKey(c => c.UserID).IsRequired(false);
+
+                modelBuilder.Entity<Reservation>().ToTable("reservations")
+                .HasOne(c => c.RoomLayout)
+                .WithMany(c => c.Reservations)
+                .HasForeignKey(c => c.RoomLayoutID);
             });
         }
     }

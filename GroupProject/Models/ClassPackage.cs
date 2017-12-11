@@ -19,7 +19,7 @@ namespace GroupProject.Models
         [Required]
         public double Price { get; set; }
 
-        public DateTime ExpirationDate { get; set; }
+        public int ExpirationDuration { get; set; }
 
         public int SortOrder { get; set; }
 
@@ -31,5 +31,7 @@ namespace GroupProject.Models
         public bool IsActiveFlag { get; set; }
 
         public bool IsFeaturedFlag { get; set; }
+
+        public string ClassTypes { get; set; }
     }
 }

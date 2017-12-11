@@ -37,5 +37,6 @@ namespace GroupProject.Models
         public virtual Location Location { get; set; }
 
         public virtual ICollection<ClassSchedule> ClassSchedules { get; set; }
+        public virtual ICollection<Reservation> Reservations { get; set; }
     }
 }

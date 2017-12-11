@@ -1,6 +1,6 @@
 ﻿@{
     User Model = ViewBag.User;
-    ViewData["Title"] = "Administrator Dashboard";
+    ViewData["Title"] = "Reservations - GroupProject";
 }
 <!DOCTYPE html>
 <html>
@@ -10,7 +10,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>@ViewData["Title"] - GroupProject</title>
 
-    <environment include="Development">
+    @*<environment include="Development">*@
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <!-- Font Awesome -->
         <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css">
@@ -26,18 +26,19 @@
         <link rel="stylesheet" href="~/lib/admin-lte/plugins/bootstrap-slider/slider.css" />
         <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.3/css/rowReorder.dataTables.min.css"/>
         <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.0/css/responsive.dataTables.min.css" />
-        <link rel="stylesheet" href="~/lib/admin-lte/dist/css/AdminLTE.min.css">
-        <link rel="stylesheet" href="~/lib/admin-lte/dist/css/skins/_all-skins.min.css">
-        <link rel="stylesheet" href="~/fonts/material-design/material-design.min.css">
+        <link rel="stylesheet" href="~/css/AdminReservations.css"/>
+        <link rel="stylesheet" href="~/lib/admin-lte/dist/css/AdminLTE.min.css"/>
+        <link rel="stylesheet" href="~/lib/admin-lte/dist/css/skins/_all-skins.min.css"/>
+        <link rel="stylesheet" href="~/fonts/material-design/material-design.min.css"/>
 
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-    </environment>
-    <environment exclude="Development">
+    @*</environment>*@
+    @*<environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-    </environment>
+    </environment>*@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <script type="text/javascript">
         var _instructorsTable;
@@ -97,7 +98,7 @@ else
                         <!-- Navbar Right Menu -->
                         <div class="navbar-custom-menu">
                             <ul class="nav navbar-nav">
-                                <!-- Messages: style can be found in dropdown.less-->
+                                @*<!-- Messages: style can be found in dropdown.less-->
                                 <li class="dropdown messages-menu">
                                     <!-- Menu toggle button -->
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -193,7 +194,7 @@ else
                                             <a href="#">View all tasks</a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li>*@
                                 <!-- User Account Menu -->
                                 <li class="dropdown user user-menu">
                                     <!-- Menu Toggle Button -->
@@ -238,7 +239,7 @@ else
                                         <!-- Menu Footer-->
                                         <li class="user-footer">
                                             <div class="pull-left">
-                                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                                @*<a href="#" class="btn btn-default btn-flat">Profile</a>*@
                                             </div>
                                             <div class="pull-right">
                                                 <a asp-controller="Admin" asp-action="Logout" class="btn btn-default btn-flat">Sign out</a>
@@ -258,9 +259,9 @@ else
                 <div class="container-fluid">
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
-                        <a class="btn btn-app active" id="Dashboard">
+                        @*<a class="btn btn-app active" id="Dashboard">
                             <i class="fa fa-dashboard"></i> Dashboard
-                        </a>
+                        </a>*@
                         <a class="btn btn-app" id="Reservations">
                             <i class="fa fa-user-plus"></i> Reservations
                         </a>
@@ -317,7 +318,7 @@ else
     <script type="text/javascript">
         $(document).ready(function () {
             $.ajax({
-                url: "@Url.Action("dashboard", "admin")",
+                url: "@Url.Action("reservations", "admin")",
                 success: function (data) {
                     $("#MainContainer").html(data);
                 }
@@ -388,6 +389,17 @@ else
                 location = '@Url.Action("login", "admin")';
             }
         });
+        function formatAMPM(d) {
+            var date = new Date(d);
+            var hours = date.getUTCHours();
+            var minutes = date.getUTCMinutes();
+            var ampm = hours >= 12 ? 'pm' : 'am';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            var strTime = hours + ':' + minutes + ' ' + ampm;
+            return strTime;
+        }
     </script>
     }
 </body>

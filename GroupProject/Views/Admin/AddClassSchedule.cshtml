@@ -28,7 +28,7 @@
                                 <select class="form-control" id="classTypeID" name="classTypeID">
                                     @foreach (ClassType t in ViewBag.ClassTypes)
                                     {
-                                        <option value="@t.ClassTypeID">@t.ClassName</option>
+                                        <option data-location="@t.LocationID" value="@t.ClassTypeID">@t.ClassName</option>
                                     }
                                 </select>
                             </div>
@@ -36,10 +36,10 @@
                                 <label for="roomLayoutID">Select Room Layout</label>
                                 <select class="form-control" id="roomLayoutID" name="roomLayoutID">
                                     <option value="0">None</option>
-                                    @foreach (RoomLayout r in ViewBag.RoomLayouts)
+                                    @*@foreach (RoomLayout r in ViewBag.RoomLayouts)
                                     {
-                                        <option value="@r.RoomLayoutID">@r.RoomName</option>
-                                    }
+                                        <option data-location="@r.Location.LocationName" value="@r.RoomLayoutID">@r.RoomName</option>
+                                    }*@
                                 </select>
                             </div>
                         </div>
@@ -186,6 +186,36 @@
 <script type="text/javascript">
     $("#classTypeID").select2();
     $("#roomLayoutID").select2();
+
+    var loadLayouts = function (loc) { 
+        var locations = null;
+        $.ajax({
+            url: "admin/getroomlayoutsbylocation?locationID=" + loc,
+            success: function (response) {
+                locations = response;
+            }
+        }).then(function () {
+            $("#roomLayoutID").select2('destroy');
+            $("#roomLayoutID option").remove();
+            var data = [];
+            data.push({ id: 0, text: "None" });
+            $.each(locations, function (i, e) {
+                data.push({ id: e.roomLayoutID, text: e.roomName });
+            });
+            $("#roomLayoutID").select2({
+                data: data
+            });
+        });
+       
+    };
+    var l = $('#classTypeID').find(':selected').data("location");
+    loadLayouts(l);
+
+    $('#classTypeID').on("change", function (e) {
+        var loc = $("#classTypeID").select2().find(":selected").data("location");
+        loadLayouts(loc);
+    });
+
     $('input[type="checkbox"], input[type="radio"]').iCheck({
         checkboxClass: 'icheckbox_square-red',
         radioClass: 'iradio_square-red',

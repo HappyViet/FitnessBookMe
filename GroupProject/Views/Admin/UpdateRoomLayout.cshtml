@@ -170,6 +170,7 @@
 <script type="text/javascript" src="~/lib/bootstrap-contextmenu/bootstrap-contextmenu.js"></script>
 <script type="text/javascript" src="~/js/updateRoomLayout.js"></script>
 <script type="text/javascript">
+    $('#locationName').select2();
     $.each(PreData, function (index, element) {
         if (element != "-") {
             var cell = $("#SeatsTable tbody tr").find("td[data-column='" + element.C + "'][data-row='" + element.R + "']");

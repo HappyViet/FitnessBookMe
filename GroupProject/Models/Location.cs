@@ -43,5 +43,7 @@ namespace GroupProject.Models
         public virtual ICollection<ClassType> ClassTypes { get; set; }
 
         public virtual ICollection<RoomLayout> RoomLayouts { get; set; }
+
+        public virtual ICollection<Instructor> Instructors { get; set; }
     }
 }

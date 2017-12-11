@@ -42,5 +42,9 @@ namespace GroupProject.Models
 
         [Required]
         public int CancelOffset { get; set; }
+
+        public bool DisabledForView { get; set; }
+
+        public virtual ICollection<Reservation> Reservations { get; set; }
     }
 }

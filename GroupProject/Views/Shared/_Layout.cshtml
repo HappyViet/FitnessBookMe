@@ -21,7 +21,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     <!-- //web-fonts -->
 
 
-
+    <link href="~/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet"> <!-- font-awesome icons -->
 
 
 
@@ -121,7 +121,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     <!-- Contact -->
 
 
-    <div class="contact" id="signIn">
+    <div class="contact" id="signIn" style="height:1170px">
         <div id="particles-js2"></div>
         <div class="contact-top">
 
@@ -129,12 +129,17 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             
 
             <form asp-controller="User" asp-action="Login" method="post" class="contact_form slideanim">
-                <input type="hidden" name="RequestPath" id="RequestPath" value="/user">
                 <div class="message">
                     <div class="col-md-3 col-sm-3 grid_3 c1"></div>
                     <div class="col-md-6 col-sm-6 grid_6 c1">
                         <input type="text" class="margin-right" id="Username" Name="Username" placeholder="Enter Username or Email" required="">
                         <input type="password" Name="Password" id="Password" placeholder="Password" required="" style="width: 100%;border-radius: 0;line-height: 22px;font-size: 14px;padding: 14px 17px 14px;outline: none;color: #FFF;height: 50px;border: 1px solid #424141;margin: 0 0 20px;background: rgba(239, 235, 235, 0.18);letter-spacing: 1px;">
+                        @{
+                            if (ViewBag.LoginError != "")
+                            {
+                                <h4 style="color:white;">@ViewBag.LoginError</h4>
+                            }
+                        }
                     </div>
 
                     <div class="col-md-3 col-sm-3 grid_3 c1">
@@ -144,8 +149,47 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 
                 <input type="submit" value="Sign In">
             </form>
+            <form asp-controller="User" asp-action="Register" method="post" class="contact_form slideanim">
+                <div class="message">
+                    <div class="col-md-3 col-sm-3 grid_3 c1"></div>
+                    <div class="col-md-6 col-sm-6 grid_6 c1">
+                        <input type="text" class="margin-right" id="FirstName" Name="FirstName" placeholder="Enter First Name" required="">
+                        <input type="text" class="margin-right" id="LastName" Name="LastName" placeholder="Enter Last Name" required="">
+                        <input type="text" class="form-control pull-right" id="dateOfBirth" name="dateOfBirth" placeholder="Enter Date of Birth" required="">
+                        <div class="form-group row">
+                            <div class="col-md-1 col-sm-2 col-xs-6">
+                                <label for="_GenderMale" style="color:white">
+                                    <input type="radio" id="_GenderMale" name="_Gender" value="1" checked />
+                                    Male
+                                </label>
+                            </div>
+                            <div class="col-md-1 col-sm-2 col-xs-6">
+                                <label for="_GenderFemale" style="color:white">
+                                    <input type="radio" id="_GenderFemale" name="_Gender" value="2" />
+                                    Female
+                                </label>
+                            </div>
+                        </div>
+                        <input type="text" class="margin-right" id="Email" Name="Email" placeholder="Enter Email" required="">
+                        <input type="text" class="margin-right" id="Username" Name="Username" placeholder="Enter Username" required="">
+                        <input type="password" Name="Password" id="Password" placeholder="Password" required="" style="width: 100%;border-radius: 0;line-height: 22px;font-size: 14px;padding: 14px 17px 14px;outline: none;color: #FFF;height: 50px;border: 1px solid #424141;margin: 0 0 20px;background: rgba(239, 235, 235, 0.18);letter-spacing: 1px;">
+                        @{
+                            if (ViewBag.RegisterMessage != "")
+                            {
+                                <h4 style="color:white;">@ViewBag.RegisterMessage</h4>
+                            }
+                        }
+                    </div>
+
+                    <div class="col-md-3 col-sm-3 grid_3 c1">
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+                <input type="submit" value="Sign Up">
+            </form>
             
-        </div>
+</div>
     </div>
     <!-- //Contact -->
     <!-- about -->
@@ -329,26 +373,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 <div class="col-sm-4 team-grid">
                     <!-- normal -->
                     <div class="ih-item circle effect10 bottom_to_top">
-                        <div class="img"><img src="~/images/t1.jpg" alt="img" /></div>
+                        <div class="img"><img src="~/images/ProfileImages/pranav.jpg" alt="img" /></div>
                         <div class="info">
-                            <h3>Emily Watson</h3>
-                            <div class="icons">
-                                <ul>
-                                    <li><a href="www.facebook.com/radz053"><i class="fa fa-facebook"></i></a></li>
-                                    <li class="team-twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end normal -->
-                </div>
-                <div class="col-sm-4 team-grid">
-                    <!-- normal -->
-                    <div class="ih-item circle effect10 bottom_to_top">
-                        <div class="img"><img src="~/images/t2.jpg" alt="img" /></div>
-                        <div class="info">
-                            <h3>Shane Smith</h3>
+                            <h3>Pranav Joshi</h3>
                             <div class="icons">
                                 <ul>
                                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -363,9 +390,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 <div class="col-sm-4 team-grid">
                     <!-- normal -->
                     <div class="ih-item circle effect10 bottom_to_top">
-                        <div class="img"><img src="~/images/t3.jpg" alt="img" /></div>
+                        <div class="img"><img src="~/images/ProfileImages/rushi.jpg" alt="img" /></div>
                         <div class="info">
-                            <h3>Jessica Warner</h3>
+                            <h3>Rushiraj Jadeja</h3>
                             <div class="icons">
                                 <ul>
                                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -380,9 +407,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 <div class="col-sm-4 team-grid">
                     <!-- normal -->
                     <div class="ih-item circle effect10 bottom_to_top">
-                        <div class="img"><img src="~/images/t4.jpg" alt="img" /></div>
+                        <div class="img"><img src="~/images/ProfileImages/jashdeep.jpg" alt="img" /></div>
                         <div class="info">
-                            <h3>Dale Duminy</h3>
+                            <h3>Yashdeep Kajal</h3>
                             <div class="icons">
                                 <ul>
                                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -397,9 +424,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 <div class="col-sm-4 team-grid">
                     <!-- normal -->
                     <div class="ih-item circle effect10 bottom_to_top">
-                        <div class="img"><img src="~/images/t5.jpg" alt="img" /></div>
+                        <div class="img"><img src="~/images/ProfileImages/rithesh.jpg" alt="img" /></div>
                         <div class="info">
-                            <h3>Ruby Miller</h3>
+                            <h3>Rithesh Gowda</h3>
                             <div class="icons">
                                 <ul>
                                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -414,9 +441,26 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 <div class="col-sm-4 team-grid">
                     <!-- normal -->
                     <div class="ih-item circle effect10 bottom_to_top">
-                        <div class="img"><img src="~/images/t6.jpg" alt="img" /></div>
+                        <div class="img"><img src="~/images/ProfileImages/joel.jpg" alt="img" /></div>
                         <div class="info">
-                            <h3>James Kallis</h3>
+                            <h3>Joel Sanchez</h3>
+                            <div class="icons">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li class="team-twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end normal -->
+                </div>
+                <div class="col-sm-4 team-grid">
+                    <!-- normal -->
+                    <div class="ih-item circle effect10 bottom_to_top">
+                        <div class="img"><img src="~/images/ProfileImages/divya.jpg" alt="img" /></div>
+                        <div class="info">
+                            <h3>Divya Bhavsar</h3>
                             <div class="icons">
                                 <ul>
                                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -645,9 +689,16 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     <script src="~/lib/custom/js/jquery-2.2.3.min.js"></script>
     <script src="~/lib/custom/js/particles.js"></script>
     <script src="~/lib/custom/js/app.js"></script>
-
     <!-- skills -->
-
+    <script type="text/javascript" src="~/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#dateOfBirth').datepicker({
+            autoclose: true,
+            format: "yyyy-mm-dd"
+            });
+        });
+    </script>
     <script src="~/lib/custom/js/responsiveslides.min.js"></script>
     <script>
         // You can also use "$(window).load(function() {"
@@ -763,7 +814,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     <!-- //here ends scrolling icon -->
     <script src="~/lib/custom/js/bootstrap.js"></script>
     <!-- //for bootstrap working -->
-
+   
 @RenderBody()    
 </body>
 

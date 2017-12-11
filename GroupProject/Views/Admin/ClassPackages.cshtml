@@ -10,9 +10,10 @@
                 <tr>
                     <th>Class Pack Name</th>
                     <th>Description</th>
+                    <th>Class Count</th>
                     <th>Badge</th>
                     <th>Price</th>
-                    <th>Expiration</th>
+                    <th>Expiration Duration</th>
                     <th>Sort Order</th>
                     <th>Is Active ?</th>
                     <th>Is Featured ?</th>
@@ -46,15 +47,10 @@
                 'columns': [
                     { "data": "classPackageName" },
                     { "data": "classPackageDescription" },
+                    {"data": "classCount"},
                     { "data": "badge" },
                     { "data": "price" },
-                    {
-                        data: "expirationDate",
-                        render: function (data, type, row)
-                        {
-                            return data.split("T")[0]
-                        }
-                    },
+                    { "data": "expirationDuration" },
                     { "data": "sortOrder" },
                     {
                         data: "isActive",

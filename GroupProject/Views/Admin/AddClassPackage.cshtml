@@ -24,18 +24,16 @@
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-4">
-                                <label for="expirationDate">Expiration Date</label>
-                                <div class="input-group date">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </div>
-                                    <input type="text" class="form-control pull-right" id="expirationDate" name="expirationDate" placeholder="Enter Expiration Date">
+                                <label for="expirationDuration">Expiration Duration</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-ticket"></i></span>
+                                    <input type="text" class="form-control" id="expirationDuration" name="expirationDuration" placeholder="Enter expiration duration in days">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-lg-6 col-md-8">
-                                <label for="description">Description</label>
+                                <label for="classPackageDescription">Description</label>
                                 <textarea class="form-control" rows="7" id="classPackageDescription" name="classPackageDescription" placeholder="Enter Description"></textarea>
                             </div>
                         </div>
@@ -60,6 +58,15 @@
                             <div class="col-lg-2 col-md-3">
                                 <label for="sortOrder">Sort Order</label>
                                 <input type="text" class="form-control" id="sortOrder" name="sortOrder" placeholder="Enter Sort Order">
+                            </div>
+                            <div class="col-lg-2 col-md-3">
+                                <label for="classTypesDropDown">Available to ClassTypes:</label>
+                                <select class="form-control" id="classTypesDropDown" name="classTypesDropDown[]" multiple="multiple">
+                                    @foreach (ClassType classType in ViewBag.ClassTypes)
+                                    {
+                                        <option value="@classType.ClassTypeID">@classType.ClassName</option>
+                                    }
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -136,8 +143,10 @@
 <!-- /.modal -->
 <script type="text/javascript" src="~/lib/admin-lte/plugins/input-mask/jquery.inputmask.js"></script>
 <script type="text/javascript" src="~/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="~/lib/select2/dist/js/select2.full.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        $("#classTypesDropDown").select2();
         //Date picker
         $('#expirationDate').datepicker({
             autoclose: true,
@@ -166,10 +175,20 @@
             $("#SaveClassPackage i").removeClass("fa-check");
             $("#SaveClassPackage i").addClass("fa-spinner fa-pulse fa-fw");
             $("#SaveClassPackage div").text("Saving Changes");
+            var classPackageName = $("#classPackageName").val();
+            var expirationDuration = $("#expirationDuration").val();
+            var classPackageDescription = $("#classPackageDescription").val();
+            var price = $("#price").val();
+            var badge = $("#badge").val();
+            var classCount = $("#classCount").val();
+            var sortOrder = $("#sortOrder").val();
+            var isActiveFlag = $("#isActiveFlag").val();
+            var isFeaturedFlag = $("#isFeaturedFlag").val();
+            var classTypes=JSON.stringify($("#classTypesDropDown").select2("val"));
             $.ajax({
                 url: "@Url.Action("addClassPackage", "admin")",
                 method: 'POST',
-                data: $('#NewClassPackageForm').serialize(),
+                data: {classPackageName:classPackageName,expirationDuration:expirationDuration,classPackageDescription:classPackageDescription,price:price,badge:badge,classCount:classCount,sortOrder:sortOrder,isActiveFlag:isActiveFlag,isFeaturedFlag:isFeaturedFlag,classTypes:classTypes},
                 async: true,
                 success: function (data) {
                     if (data == true) {

@@ -45,7 +45,7 @@ namespace GroupProject
                         SameSite = SameSiteMode.Lax,
                         SecurePolicy = CookieSecurePolicy.SameAsRequest
                     };
-                    options.LoginPath = new PathString("/login");
+                    options.LoginPath = new PathString("/");
                     options.ReturnUrlParameter = "RequestPath";
                     options.SlidingExpiration = true;
                 })
